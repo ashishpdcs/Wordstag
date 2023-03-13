@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NPOI.SS.Formula.Functions;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.User;
@@ -42,7 +43,7 @@ namespace Wordstag.Services.Services
         {
             var data = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
 
-                        where userRegisterTB.Id == request.Id
+                        where userRegisterTB.Id == request.Id && request.IsDeleted == false
 
                         select new GetUserRegisterDto
                         {
@@ -60,6 +61,7 @@ namespace Wordstag.Services.Services
         public async Task<List<GetUserRegisterDto>> GetAllUserRegister()
         {
             var data = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
+                        where userRegisterTB.IsDeleted == false
                         select new GetUserRegisterDto
                         {
                             Id = userRegisterTB.Id,
@@ -98,6 +100,7 @@ namespace Wordstag.Services.Services
                 Zipcode = request.Zipcode,
                 Gender = request.Gender,
                 CreatedOn = DateTime.UtcNow,
+                IsDeleted = false
             };
             await _readWriteUnitOfWork.UserRegisterRepository.AddAsync(saveUserRegister);
             await _readWriteUnitOfWork.CommitAsync();
@@ -133,7 +136,7 @@ namespace Wordstag.Services.Services
             var data = await _readWriteUnitOfWork.UserRegisterRepository.GetFirstOrDefaultAsync(x => x.Id == request.Id);
             if (data != null)
             {
-                //data.IsDeleted = true;
+                data.IsDeleted = true;
                 await _readWriteUnitOfWork.CommitAsync();
                 return true;
             }

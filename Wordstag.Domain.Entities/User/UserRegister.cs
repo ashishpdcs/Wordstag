@@ -30,6 +30,8 @@ namespace Wordstag.Domain.Entities.User
         public int? Zipcode { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
+        public bool IsDeleted { get; set; }
+
 
     }
 }

@@ -19,7 +19,6 @@
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
 
-        public bool IsDeleted { get; set; }
     }
     public class GetUserRegisterRequest
     {
@@ -41,6 +40,8 @@
         public int? StateId { get; set; }
         public int? CountryId { get; set; }
         public int? Zipcode { get; set; }
+        public bool IsDeleted { get; set; }
+
     }
     public class UpdateUserRegisterRequest
     {
@@ -59,10 +60,11 @@
         public int? StateId { get; set; }
         public int? CountryId { get; set; }
         public int? Zipcode { get; set; }
+        public bool IsDeleted { get; set; }
     }
     public class DeleteUserRegisterRequest
     {
-        public Guid Did { get; set; }
+        public Guid Id { get; set; }
     }
 }
 
