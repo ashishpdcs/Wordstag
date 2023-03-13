@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "yfW2jIiQvDTPCDswCygbcG45QIuW/jwBGrU8nd0Y/ybcktTOA/eWRck6zPwXN3dduM/0M27/tud6OatJ6ul89w==",
+  "success": true,
+  "projectFilePath": "C:\\WorkSpace\\Disha\\Wordstag\\Wordstag.Domain.Entities\\Wordstag.Domain.Entities.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\nisha\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\6.0.0\\microsoft.aspnetcore.authentication.facebook.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
