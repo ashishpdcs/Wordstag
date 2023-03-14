@@ -9,7 +9,7 @@ namespace Wordstag.Services.Interfaces
         Task<List<GetUserRegisterDto>> GetAllUserRegister();
         Task<Guid> SaveUserRegister(SaveUserRegisterDto request);   
         Task<bool> UpdateUserRegister(UpdateUserRegisterDto request);
-        //Task<bool> DeleteUserRegister(DeleteUserRegisterDto request);
+        Task<bool> DeleteUserRegister(DeleteUserRegisterDto request);
 
     }
 }

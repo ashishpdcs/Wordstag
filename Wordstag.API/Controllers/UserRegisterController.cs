@@ -47,13 +47,13 @@ namespace Wordstag.API.Controllers
             var result = await _userRegisterService.UpdateUserRegister(updateUserRegisterDto);
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
-        //[HttpPost("DeleteUserRegister")]
-        //public async Task<Dictionary<string, object>> DeleteUserRegister([FromBody] DeleteUserRegisterRequest request)
-        //{
-        //    var deleteUserRegister = _mapper.Map<DeleteUserRegisterRequest, DeleteUserRegisterDto>(request);
-        //    var result = await _userRegisterService.DeleteUserRegister(deleteUserRegister);
-        //    return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
-        //}
+        [HttpPost("DeleteUserRegister")]
+        public async Task<Dictionary<string, object>> DeleteUserRegister([FromBody] DeleteUserRegisterRequest request)
+        {
+            var deleteUserRegister = _mapper.Map<DeleteUserRegisterRequest, DeleteUserRegisterDto>(request);
+            var result = await _userRegisterService.DeleteUserRegister(deleteUserRegister);
+            return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
+        }
 
     }
 }
