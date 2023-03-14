@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using NPOI.SS.Formula.Functions;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.User;
@@ -41,9 +42,7 @@ namespace Wordstag.Services.Services
         public async Task<List<GetUserRegisterDto>> GetUserRegister(GetUserRegisterDto request)
         {
             var data = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
-
                         where userRegisterTB.Id == request.Id && userRegisterTB.IsDeleted == false
-
                         select new GetUserRegisterDto
                         {
                             Id = userRegisterTB.Id,
