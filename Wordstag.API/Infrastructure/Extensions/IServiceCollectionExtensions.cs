@@ -28,6 +28,9 @@ namespace Wordstag.API.Infrastructure.Extensions
             services.AddTransient(typeof(IAccountsRepository<>), typeof(AccountsRepository<>));
             services.AddTransient(typeof(IUserRegisterRepository<>), typeof(UserRegisterRepository<>));
             services.AddTransient(typeof(IRefreshTokenRepository<>), typeof(RefreshTokenRepository<>));
+            services.AddTransient(typeof(ICountryMasterRepository<>), typeof(CountryMasterRepository<>));
+            services.AddTransient(typeof(IStateMasterRepository<>), typeof(StateMasterRepository<>));
+            services.AddTransient(typeof(ICityMasterRepository<>), typeof(CityMasterRepository<>));
         }
 
         public static void ConfigureDatabases(this IServiceCollection services, IConfiguration configuration)

@@ -95,7 +95,9 @@ namespace Wordstag.Data.Contexts
 
         public DbSet<UserRegister> userRegister { get; set; }
 
-
+        public DbSet<CountryMaster> countryMasters { get; set; }
+        public DbSet<StateMaster> stateMasters { get; set; }
+        public DbSet<CityMaster> cityMasters { get; set; }
     }
 
     public interface IBaseContext

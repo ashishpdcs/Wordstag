@@ -9,6 +9,9 @@ namespace Wordstag.Data.Infrastructure
         IUserRegisterRepository<TContext> UserRegisterRepository { get; }
 
         IRefreshTokenRepository<TContext> RefreshTokenRepository { get; }
+        ICityMasterRepository<TContext> CityMasterRepository { get; }
+        ICountryMasterRepository<TContext> CountryMasterRepository { get; }
+        IStateMasterRepository<TContext> StateMasterRepository { get; }
         Task<int> CommitAsync();
 
     }
@@ -19,13 +22,24 @@ namespace Wordstag.Data.Infrastructure
         public IUserRegisterRepository<TContext> UserRegisterRepository { get; }
 
         public IRefreshTokenRepository<TContext> RefreshTokenRepository { get; }
+        public ICityMasterRepository<TContext> CityMasterRepository { get; }
+        public ICountryMasterRepository<TContext> CountryMasterRepository { get; }
+        public IStateMasterRepository<TContext> StateMasterRepository { get; }
 
-        public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository, IUserRegisterRepository<TContext> _userRegisterRepository, IRefreshTokenRepository<TContext> refreshTokenRepository)
+        public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
+            IUserRegisterRepository<TContext> _userRegisterRepository,
+            IRefreshTokenRepository<TContext> refreshTokenRepository,
+            ICityMasterRepository<TContext> cityMasterRepository,
+            IStateMasterRepository<TContext> stateMasterRepository,
+            ICountryMasterRepository<TContext> countryMasterRepository)
         {
             this.Context = context;
             this.AccountsRepository = accountsRepository;
             this.UserRegisterRepository = _userRegisterRepository;
             this.RefreshTokenRepository = refreshTokenRepository;
+            this.CountryMasterRepository = countryMasterRepository;
+            this.StateMasterRepository = stateMasterRepository;
+            this.CityMasterRepository = cityMasterRepository;
 
         }
         public async Task<int> CommitAsync()
