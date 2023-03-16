@@ -6,10 +6,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using Wordstag.Data.Contexts;
 using Wordstag.Utility;
 using Wordstag.Data.Infrastructure;
-using Wordstag.Utility;
 using Wordstag.Domain.Entities.User;
 using Wordstag.Domain.Entities.Product;
 
@@ -102,6 +100,7 @@ namespace Wordstag.Data.Contexts
 
         public DbSet<ProductType> productTypes { get; set; }
         public DbSet<Product> products { get; set; }
+        public DbSet<Language> languages { get; set; }
     }
 
     public interface IBaseContext
