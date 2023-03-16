@@ -101,6 +101,7 @@ namespace Wordstag.Data.Contexts
         public DbSet<ProductType> productTypes { get; set; }
         public DbSet<Product> products { get; set; }
         public DbSet<Language> languages { get; set; }
+        public DbSet<Document> documents { get; set; }
     }
 
     public interface IBaseContext

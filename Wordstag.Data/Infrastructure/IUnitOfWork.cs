@@ -16,6 +16,8 @@ namespace Wordstag.Data.Infrastructure
         IProductTypeRepository<TContext> ProductTypeRepository { get; }
         IProductRepository<TContext> ProductRepository { get; }
         ILanguageRepository<TContext> LanguageRepository { get; }
+
+        IDocumentRepository<TContext> DocumentRepository { get; }
         Task<int> CommitAsync();
 
     }
@@ -31,6 +33,7 @@ namespace Wordstag.Data.Infrastructure
         public IProductTypeRepository<TContext> ProductTypeRepository { get; }
         public IProductRepository<TContext> ProductRepository { get; }
         public ILanguageRepository<TContext> LanguageRepository { get; }
+        public IDocumentRepository<TContext> DocumentRepository { get; }
         public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
             IUserRegisterRepository<TContext> _userRegisterRepository,
             IRefreshTokenRepository<TContext> refreshTokenRepository,
@@ -39,7 +42,8 @@ namespace Wordstag.Data.Infrastructure
             ICountryMasterRepository<TContext> countryMasterRepository,
             IProductTypeRepository<TContext> productTypeRepository,
             IProductRepository<TContext> productRepository,
-            ILanguageRepository<TContext> languageRepository)
+            ILanguageRepository<TContext> languageRepository, 
+            IDocumentRepository<TContext> documentRepository)
         {
             this.Context = context;
             this.AccountsRepository = accountsRepository;
@@ -51,6 +55,7 @@ namespace Wordstag.Data.Infrastructure
             ProductTypeRepository = productTypeRepository;
             ProductRepository = productRepository;
             LanguageRepository = languageRepository;
+            DocumentRepository = documentRepository;
         }
         public async Task<int> CommitAsync()
         {
