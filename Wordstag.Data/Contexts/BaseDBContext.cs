@@ -11,6 +11,7 @@ using Wordstag.Utility;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Utility;
 using Wordstag.Domain.Entities.User;
+using Wordstag.Domain.Entities.Product;
 
 namespace Wordstag.Data.Contexts
 {
@@ -98,6 +99,8 @@ namespace Wordstag.Data.Contexts
         public DbSet<CountryMaster> countryMasters { get; set; }
         public DbSet<StateMaster> stateMasters { get; set; }
         public DbSet<CityMaster> cityMasters { get; set; }
+
+        public DbSet<ProductType> productTypes { get; set; }
     }
 
     public interface IBaseContext

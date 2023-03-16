@@ -84,7 +84,7 @@ namespace Wordstag.Services.Services
             var hashPassword = GenericMethods.GetHash(request.Password);
             var saveUserRegister = new UserRegister()
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
