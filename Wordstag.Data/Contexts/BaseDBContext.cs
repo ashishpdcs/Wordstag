@@ -101,6 +101,7 @@ namespace Wordstag.Data.Contexts
         public DbSet<CityMaster> cityMasters { get; set; }
 
         public DbSet<ProductType> productTypes { get; set; }
+        public DbSet<Product> products { get; set; }
     }
 
     public interface IBaseContext

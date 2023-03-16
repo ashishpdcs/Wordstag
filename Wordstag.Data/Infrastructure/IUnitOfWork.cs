@@ -14,6 +14,7 @@ namespace Wordstag.Data.Infrastructure
         IStateMasterRepository<TContext> StateMasterRepository { get; }
 
         IProductTypeRepository<TContext> ProductTypeRepository { get; }
+        IProductRepository<TContext> ProductRepository { get; }
         Task<int> CommitAsync();
 
     }
@@ -29,13 +30,15 @@ namespace Wordstag.Data.Infrastructure
         public IStateMasterRepository<TContext> StateMasterRepository { get; }
 
         public IProductTypeRepository<TContext> ProductTypeRepository { get; }
+        public IProductRepository<TContext> ProductRepository { get; }
         public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
             IUserRegisterRepository<TContext> _userRegisterRepository,
             IRefreshTokenRepository<TContext> refreshTokenRepository,
             ICityMasterRepository<TContext> cityMasterRepository,
             IStateMasterRepository<TContext> stateMasterRepository,
             ICountryMasterRepository<TContext> countryMasterRepository,
-            IProductTypeRepository<TContext> productTypeRepository)
+            IProductTypeRepository<TContext> productTypeRepository,
+            IProductRepository<TContext> productRepository)
         {
             this.Context = context;
             this.AccountsRepository = accountsRepository;
@@ -45,6 +48,7 @@ namespace Wordstag.Data.Infrastructure
             this.StateMasterRepository = stateMasterRepository;
             this.CityMasterRepository = cityMasterRepository;
             ProductTypeRepository = productTypeRepository;
+            ProductRepository = productRepository;
         }
         public async Task<int> CommitAsync()
         {

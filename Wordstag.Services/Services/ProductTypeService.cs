@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Org.BouncyCastle.Asn1.Ocsp;
-using System;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Product;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Interfaces;
-using Wordstag.Utility;
 
 namespace Wordstag.Services.Services
 {
