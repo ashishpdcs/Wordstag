@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wordstag.Domain.Entities.Infrastructure;
 
 namespace Wordstag.Domain.Entities.Product
 {
@@ -11,7 +12,7 @@ namespace Wordstag.Domain.Entities.Product
         public string? Product_Name { get; set; }
         public string? Description { get; set; }
         public decimal? Price { get; set; }
-        public Guid Product_TypeID { get; set; }
+        public Guid Product_TypeId { get; set; }
         public string? From_Language { get; set; }
         public string? To_Language { get; set; }
         public DateTime? CreatedOn { get; set; }

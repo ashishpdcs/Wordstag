@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using NPOI.OpenXmlFormats.Wordprocessing;
 using NPOI.SS.Formula.Functions;
+using SixLabors.Fonts.Tables.AdvancedTypographic;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Product;
 using Wordstag.Services.Entities.Product;
+using Wordstag.Services.Entities.User;
 using Wordstag.Services.Interfaces;
 
 namespace Wordstag.Services.Services
@@ -40,14 +43,26 @@ namespace Wordstag.Services.Services
                             Product_Name = ProductTB.Product_Name,
                             Description = ProductTB.Description,
                             Price = ProductTB.Price,
-                            Product_TypeID = ProductTB.Product_TypeID,
+                            Product_TypeId = ProductTB.Product_TypeId,
                             From_Language = ProductTB.From_Language,
                             To_Language = ProductTB.To_Language,
                             CreatedBy = ProductTB.CreatedBy,
-                            CreatedOn = ProductTB.CreatedOn, 
+                            CreatedOn = ProductTB.CreatedOn,
                             UpdatedBy = ProductTB.UpdatedBy,
                             UpdatedOn = ProductTB.UpdatedOn,
                             IsDeleted = ProductTB.IsDeleted,
+                            productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
+                                            where ProducttypeTB.TypeId == ProductTB.Product_TypeId && ProducttypeTB.IsDeleted != true
+                                            select new GetProductTypeDto
+                                            {
+                                                TypeId = ProducttypeTB.TypeId,
+                                                ProductType_Name = ProducttypeTB.ProductType_Name,
+                                                ProductType_Description = ProducttypeTB.ProductType_Description,
+                                                CreatedBy = ProducttypeTB.CreatedBy,
+                                                CreatedOn = ProducttypeTB.CreatedOn,
+                                                UpdatedBy = ProducttypeTB.UpdatedBy,
+                                                UpdatedOn = ProducttypeTB.UpdatedOn,
+                                            }).ToList(),
                         }).ToList();
             return data;
         }
@@ -61,7 +76,7 @@ namespace Wordstag.Services.Services
                             Product_Name = ProductTB.Product_Name,
                             Description = ProductTB.Description,
                             Price = ProductTB.Price,
-                            Product_TypeID = ProductTB.Product_TypeID,
+                            Product_TypeId = ProductTB.Product_TypeId,
                             From_Language = ProductTB.From_Language,
                             To_Language = ProductTB.To_Language,
                             CreatedBy = ProductTB.CreatedBy,
@@ -69,7 +84,45 @@ namespace Wordstag.Services.Services
                             UpdatedBy = ProductTB.UpdatedBy,
                             UpdatedOn = ProductTB.UpdatedOn,
                             IsDeleted = ProductTB.IsDeleted,
+                            productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
+                                            where ProducttypeTB.TypeId == ProductTB.Product_TypeId && ProducttypeTB.IsDeleted != true
+                                            select new GetProductTypeDto
+                                            {
+                                                TypeId = ProducttypeTB.TypeId,
+                                                ProductType_Name = ProducttypeTB.ProductType_Name,
+                                                ProductType_Description = ProducttypeTB.ProductType_Description,
+                                                CreatedBy = ProducttypeTB.CreatedBy,
+                                                CreatedOn = ProducttypeTB.CreatedOn,
+                                                UpdatedBy = ProducttypeTB.UpdatedBy,
+                                                UpdatedOn = ProducttypeTB.UpdatedOn,
+                                            }).ToList(),
                         }).ToList();
+            //var data = _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable().Include(P => P.productTypes).ToList();
+            //var productmodel = data.Select(P => new GetProductDto
+            //{
+            //    Product_Id = P.Product_Id,
+            //    Product_Name = P.Product_Name,
+            //    Description = P.Description,
+            //    Price = P.Price,
+            //    Product_TypeID = P.Product_TypeID,
+            //    From_Language = P.From_Language,
+            //    To_Language = P.To_Language,
+            //    CreatedBy = P.CreatedBy,
+            //    CreatedOn = P.CreatedOn,
+            //    UpdatedBy = P.UpdatedBy,
+            //    UpdatedOn = P.UpdatedOn,
+            //    IsDeleted = P.IsDeleted,
+            //    productTypes = P.productTypes.Select(PT => new GetProductTypeDto
+            //    {
+            //        TypeId = PT.TypeId,
+            //        ProductType_Name = PT.ProductType_Name,
+            //        ProductType_Description = PT.ProductType_Description,
+            //        CreatedBy = PT.CreatedBy,
+            //        CreatedOn = PT.CreatedOn,
+            //        UpdatedBy = PT.UpdatedBy,
+            //        UpdatedOn = PT.UpdatedOn,
+            //    }).ToList()
+            //}).ToList();
             return data;
         }
         public async Task<Guid> SaveProduct(SaveProductDto request)
@@ -80,7 +133,7 @@ namespace Wordstag.Services.Services
                 Product_Name = request.Product_Name,
                 Description = request.Description,
                 Price = request.Price,
-                Product_TypeID = request.Product_TypeID,
+                Product_TypeId = request.Product_TypeId,
                 From_Language = request.From_Language,
                 To_Language = request.To_Language,
                 CreatedBy = request.CreatedBy,
@@ -101,7 +154,7 @@ namespace Wordstag.Services.Services
                 data.Product_Name = request.Product_Name;
                 data.Description = request.Description;
                 data.Price = request.Price;
-                data.Product_TypeID = request.Product_TypeID;
+                data.Product_TypeId = request.Product_TypeId;
                 data.From_Language = request.From_Language;
                 data.To_Language = request.To_Language;
                 data.UpdatedBy = request.UpdatedBy;

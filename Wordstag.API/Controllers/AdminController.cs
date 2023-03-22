@@ -44,9 +44,9 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetUserUpload")]
-        public async Task<Dictionary<string, object>> GetUserUpload(Guid UserId)
+        public async Task<Dictionary<string, object>> GetUserUpload()
         {
-            var result = await _UploadService.GetUserUpload(UserId);
+            var result = await _UploadService.GetAllUpload();
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
     }

@@ -9,6 +9,5 @@ namespace Wordstag.Services.Interfaces
         Task<Guid> SaveUpload(SaveUploadDto request);   
         Task<bool> UpdateUpload(UpdateUploadDto request);
         Task<bool> DeleteUpload(DeleteUploadDto request);
-        Task<List<GetUploadDto>> GetUserUpload(Guid request);
     }
 }

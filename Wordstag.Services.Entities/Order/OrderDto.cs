@@ -1,4 +1,8 @@
 ﻿
+using Wordstag.Services.Entities.Product;
+using Wordstag.Services.Entities.Upload;
+using Wordstag.Services.Entities.User;
+
 namespace Wordstag.Services.Entities.Order
 {
     public class OrderDto
@@ -24,6 +28,11 @@ namespace Wordstag.Services.Entities.Order
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool? IsDeleted { get; set; }
+
+        public List<GetProductDto> productDtos { get; set; }
+        public List<GetLanguageDto> LanguageDtos { get; set; }
+        public List<GetUserRegisterDto> UserRegisterDtos { get; set; }
+        public List<GetUploadDto> UploadDtos { get; set; }
 
     }
     public class SaveOrderDto

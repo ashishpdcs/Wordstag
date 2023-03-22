@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wordstag.Domain.Entities.Product;
 
 namespace Wordstag.Services.Entities.Product
 {
@@ -23,7 +24,7 @@ namespace Wordstag.Services.Entities.Product
         public string? Product_Name { get; set; }
         public string? Description { get; set; }
         public decimal? Price { get; set; }
-        public Guid Product_TypeID { get; set; }
+        public Guid Product_TypeId { get; set; }
         public string? From_Language { get; set; }
         public string? To_Language { get; set; }
         public DateTime? CreatedOn { get; set; }
@@ -31,6 +32,7 @@ namespace Wordstag.Services.Entities.Product
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool? IsDeleted { get; set; }
+        public List<GetProductTypeDto> productTypes { get; set; }
 
     }
     public class SaveProductDto
@@ -38,7 +40,7 @@ namespace Wordstag.Services.Entities.Product
         public string? Product_Name { get; set; }
         public string? Description { get; set; }
         public decimal? Price { get; set; }
-        public Guid Product_TypeID { get; set; }
+        public Guid Product_TypeId { get; set; }
         public string? From_Language { get; set; }
         public string? To_Language { get; set; }
         public DateTime? CreatedOn { get; set; }
@@ -51,7 +53,7 @@ namespace Wordstag.Services.Entities.Product
         public string? Product_Name { get; set; }
         public string? Description { get; set; }
         public decimal? Price { get; set; }
-        public Guid Product_TypeID { get; set; }
+        public Guid Product_TypeId { get; set; }
         public string? From_Language { get; set; }
         public string? To_Language { get; set; }
         public DateTime? UpdatedOn { get; set; }

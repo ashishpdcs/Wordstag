@@ -1,6 +1,7 @@
 ﻿
 using Wordstag.Domain.Entities.User;
 using Wordstag.Services.Entities.Product;
+using Wordstag.Services.Entities.User;
 
 namespace Wordstag.Services.Entities.Upload
 {
@@ -31,7 +32,9 @@ namespace Wordstag.Services.Entities.Upload
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool? IsDeleted { get; set; }
-        public List<UserRegister> userRegisters { get; set; }
+        public List<GetUserRegisterDto> userRegisters { get; set; }
+        public List<GetProductDto> productDto { get; set; }
+        public List<GetLanguageDto> LanguageDtos { get; set; }
     }
     public class SaveUploadDto
     {

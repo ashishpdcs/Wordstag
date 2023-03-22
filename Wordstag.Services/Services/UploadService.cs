@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using NPOI.OpenXmlFormats.Wordprocessing;
-using NPOI.SS.Formula.Functions;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Upload;
-using Wordstag.Domain.Entities.User;
+using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.Upload;
+using Wordstag.Services.Entities.User;
 using Wordstag.Services.Interfaces;
 
 namespace Wordstag.Services.Services
@@ -51,6 +49,39 @@ namespace Wordstag.Services.Services
                             UpdatedBy = UploadTB.UpdatedBy,
                             UpdatedOn = UploadTB.UpdatedOn,
                             IsDeleted = UploadTB.IsDeleted,
+                            productDto = (from producttbl in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
+                                          where producttbl.IsDeleted != true && producttbl.Product_Id == UploadTB.Product_Id
+                                          select new GetProductDto
+                                          {
+                                              Product_Id = producttbl.Product_Id,
+                                              Product_Name = producttbl.Product_Name,
+                                              Description = producttbl.Description,
+                                              Price = producttbl.Price,
+                                              Product_TypeId = producttbl.Product_TypeId,
+                                              From_Language = producttbl.From_Language,
+                                              To_Language = producttbl.To_Language
+                                          }).ToList(),
+                            LanguageDtos = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                                            where LanguageTB.LanguageId == UploadTB.Language_Id
+                                            select new GetLanguageDto
+                                            {
+                                                LanguageId = LanguageTB.LanguageId,
+                                                Language_Name = LanguageTB.Language_Name,
+                                                Language_Code = LanguageTB.Language_Code
+                                            }).ToList(),
+                            userRegisters = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
+                                             where userRegisterTB.IsDeleted != true && userRegisterTB.User_Id == UploadTB.User_Id
+                                             select new GetUserRegisterDto
+                                             {
+                                                 User_Id = userRegisterTB.User_Id,
+                                                 FirstName = userRegisterTB.FirstName,
+                                                 LastName = userRegisterTB.LastName,
+                                                 Password = userRegisterTB.Password,
+                                                 EmailAddress = userRegisterTB.EmailAddress,
+                                                 MobileNo = userRegisterTB.MobileNo,
+                                                 Gender = userRegisterTB.Gender,
+                                                 UserType = userRegisterTB.UserType,
+                                             }).ToList(),
                         }).ToList();
             return data;
         }
@@ -73,6 +104,39 @@ namespace Wordstag.Services.Services
                             UpdatedBy = UploadTB.UpdatedBy,
                             UpdatedOn = UploadTB.UpdatedOn,
                             IsDeleted = UploadTB.IsDeleted,
+                            productDto = (from producttbl in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
+                                          where producttbl.IsDeleted != true && producttbl.Product_Id == UploadTB.Product_Id
+                                          select new GetProductDto
+                                          {
+                                              Product_Id = producttbl.Product_Id,
+                                              Product_Name = producttbl.Product_Name,
+                                              Description = producttbl.Description,
+                                              Price = producttbl.Price,
+                                              Product_TypeId = producttbl.Product_TypeId,
+                                              From_Language = producttbl.From_Language,
+                                              To_Language = producttbl.To_Language
+                                          }).ToList(),
+                            LanguageDtos = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                                            where LanguageTB.LanguageId == UploadTB.Language_Id
+                                            select new GetLanguageDto
+                                            {
+                                                LanguageId = LanguageTB.LanguageId,
+                                                Language_Name = LanguageTB.Language_Name,
+                                                Language_Code = LanguageTB.Language_Code
+                                            }).ToList(),
+                            userRegisters = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
+                                             where userRegisterTB.IsDeleted != true && userRegisterTB.User_Id == UploadTB.User_Id
+                                             select new GetUserRegisterDto
+                                             {
+                                                 User_Id = userRegisterTB.User_Id,
+                                                 FirstName = userRegisterTB.FirstName,
+                                                 LastName = userRegisterTB.LastName,
+                                                 Password = userRegisterTB.Password,
+                                                 EmailAddress = userRegisterTB.EmailAddress,
+                                                 MobileNo = userRegisterTB.MobileNo,
+                                                 Gender = userRegisterTB.Gender,
+                                                 UserType = userRegisterTB.UserType,
+                                             }).ToList(),
                         }).ToList();
             return data;
         }
@@ -126,29 +190,6 @@ namespace Wordstag.Services.Services
                 return true;
             }
             return false;
-        }
-
-        public async Task<List<GetUploadDto>> GetUserUpload(Guid request)
-        {
-            var data = (from UploadTB in _readOnlyUnitOfWork.UploadRepository.GetAllAsQuerable()
-                        where UploadTB.User_Id == request && UploadTB.IsDeleted != true
-                        select new GetUploadDto
-                        {
-                            Upload_Id = UploadTB.Upload_Id,
-                            Product_Id = UploadTB.Product_Id,
-                            Language_Id = UploadTB.Language_Id,
-                            User_Id = UploadTB.User_Id,
-                            Orignal_File = UploadTB.Orignal_File,
-                            Updated_File = UploadTB.Updated_File,
-                            File_Path = UploadTB.File_Path,
-                            File_Size = UploadTB.File_Size,
-                            CreatedBy = UploadTB.CreatedBy,
-                            CreatedOn = UploadTB.CreatedOn,
-                            UpdatedBy = UploadTB.UpdatedBy,
-                            UpdatedOn = UploadTB.UpdatedOn,
-                            IsDeleted = UploadTB.IsDeleted,
-                        }).ToList();
-            return data;
         }
     }
 }
