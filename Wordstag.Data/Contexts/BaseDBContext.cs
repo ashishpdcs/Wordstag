@@ -10,6 +10,8 @@ using Wordstag.Utility;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.User;
 using Wordstag.Domain.Entities.Product;
+using Wordstag.Domain.Entities.Order;
+using Wordstag.Domain.Entities.Upload;
 
 namespace Wordstag.Data.Contexts
 {
@@ -91,17 +93,16 @@ namespace Wordstag.Data.Contexts
 
 
         public DbSet<RefreshToken> RefreshToken { get; set; }
-
         public DbSet<UserRegister> userRegister { get; set; }
-
         public DbSet<CountryMaster> countryMasters { get; set; }
         public DbSet<StateMaster> stateMasters { get; set; }
         public DbSet<CityMaster> cityMasters { get; set; }
-
         public DbSet<ProductType> productTypes { get; set; }
         public DbSet<Product> products { get; set; }
         public DbSet<Language> languages { get; set; }
         public DbSet<Document> documents { get; set; }
+        public DbSet<Order> orders { get; set; }
+        public DbSet<UploadTbl> uploads { get; set; }
     }
 
     public interface IBaseContext

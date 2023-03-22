@@ -7,17 +7,16 @@ namespace Wordstag.Data.Infrastructure
     {
         IAccountsRepository<TContext> AccountsRepository { get; }
         IUserRegisterRepository<TContext> UserRegisterRepository { get; }
-
         IRefreshTokenRepository<TContext> RefreshTokenRepository { get; }
         ICityMasterRepository<TContext> CityMasterRepository { get; }
         ICountryMasterRepository<TContext> CountryMasterRepository { get; }
         IStateMasterRepository<TContext> StateMasterRepository { get; }
-
         IProductTypeRepository<TContext> ProductTypeRepository { get; }
         IProductRepository<TContext> ProductRepository { get; }
         ILanguageRepository<TContext> LanguageRepository { get; }
-
         IDocumentRepository<TContext> DocumentRepository { get; }
+        IOrderRepository<TContext> OrderRepository { get; }
+        IUploadRepository<TContext> UploadRepository { get; }
         Task<int> CommitAsync();
 
     }
@@ -34,6 +33,8 @@ namespace Wordstag.Data.Infrastructure
         public IProductRepository<TContext> ProductRepository { get; }
         public ILanguageRepository<TContext> LanguageRepository { get; }
         public IDocumentRepository<TContext> DocumentRepository { get; }
+        public IOrderRepository<TContext> OrderRepository { get; }
+        public IUploadRepository<TContext> UploadRepository { get; }
         public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
             IUserRegisterRepository<TContext> _userRegisterRepository,
             IRefreshTokenRepository<TContext> refreshTokenRepository,
@@ -43,7 +44,9 @@ namespace Wordstag.Data.Infrastructure
             IProductTypeRepository<TContext> productTypeRepository,
             IProductRepository<TContext> productRepository,
             ILanguageRepository<TContext> languageRepository, 
-            IDocumentRepository<TContext> documentRepository)
+            IDocumentRepository<TContext> documentRepository, 
+            IOrderRepository<TContext> orderRepository,
+            IUploadRepository<TContext> uploadRepository)
         {
             this.Context = context;
             this.AccountsRepository = accountsRepository;
@@ -56,6 +59,8 @@ namespace Wordstag.Data.Infrastructure
             ProductRepository = productRepository;
             LanguageRepository = languageRepository;
             DocumentRepository = documentRepository;
+            OrderRepository = orderRepository;
+            UploadRepository = uploadRepository;
         }
         public async Task<int> CommitAsync()
         {

@@ -25,7 +25,7 @@ namespace Wordstag.Services.Entities.User
 
     public class GetUserRegisterDto
     {
-        public Guid Id { get; set; }
+        public Guid User_Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
@@ -43,6 +43,8 @@ namespace Wordstag.Services.Entities.User
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public bool IsDeleted { get; set; }
+        public string UserType { get; set; }
+
     }
     public class SaveUserRegisterDto
     {
@@ -62,10 +64,12 @@ namespace Wordstag.Services.Entities.User
         public int? Zipcode { get; set; }
         public DateTime CreatedOn { get; set; }
         public bool IsDeleted { get; set; }
+        public string UserType { get; set; }
+
     }
     public class UpdateUserRegisterDto
     {
-        public Guid Id { get; set; }
+        public Guid User_Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
@@ -82,10 +86,12 @@ namespace Wordstag.Services.Entities.User
         public int? Zipcode { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public bool IsDeleted { get; set; }
+        public string UserType { get; set; }
+
     }
     public class DeleteUserRegisterDto
     {
-        public Guid Id { get; set; }
+        public Guid User_Id { get; set; }
     }
 
 }

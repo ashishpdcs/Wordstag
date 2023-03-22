@@ -40,7 +40,7 @@ namespace Wordstag.Services.Services
                 throw new BadResultException("Email and Password Not valid");
 
             LoginDto loginDto = new LoginDto();
-            loginDto.Id = user.Id;
+            loginDto.Id = user.User_Id;
             loginDto.Username = user.FirstName;
             loginDto.Password = user.LastName;
             loginDto.JwtToken = _jwtService.GenerateSecurityToken(new SessionDetailsDto
@@ -53,11 +53,11 @@ namespace Wordstag.Services.Services
             var refreshToken = _jwtService.GenerateRefreshToken(ipAddress);
             refreshToken.UserId = loginDto.Id;
             loginDto.RefreshToken = refreshToken.Token;
-            var isRefTokenExist = await _readOnlyUnitOfWork.RefreshTokenRepository.AnyAsync(x => x.UserId == user.Id);
+            var isRefTokenExist = await _readOnlyUnitOfWork.RefreshTokenRepository.AnyAsync(x => x.UserId == user.User_Id);
             if (isRefTokenExist)
             {
                 // remove old refresh tokens from user
-                RemoveOldRefreshTokens(user.Id);
+                RemoveOldRefreshTokens(user.User_Id);
                 //await _readWriteUnitOfWork.RefreshTokenRepository.AttachUpdateEntity(refreshToken);
             }
             else

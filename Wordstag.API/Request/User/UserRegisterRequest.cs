@@ -18,10 +18,12 @@
         public int? Zipcode { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
+        public string UserType { get; set; }
     }
     public class GetUserRegisterRequest
     {
-        public Guid Id { get; set; }
+        public Guid User_Id { get; set; }
+        public string UserType { get; set; }
     }
     public class SaveUserRegisterRequest
     {
@@ -40,10 +42,12 @@
         public int? CountryId { get; set; }
         public int? Zipcode { get; set; }
         public bool IsDeleted { get; set; }
+        public string UserType { get; set; }
+
     }
     public class UpdateUserRegisterRequest
     {
-        public Guid Id { get; set; }
+        public Guid User_Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
@@ -59,10 +63,12 @@
         public int? CountryId { get; set; }
         public int? Zipcode { get; set; }
         public bool IsDeleted { get; set; }
+        public string UserType { get; set; }
+
     }
     public class DeleteUserRegisterRequest
     {
-        public Guid Id { get; set; }
+        public Guid User_Id { get; set; }
     }
 }
 

@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 using Wordstag.API.Requests.User;
 using Wordstag.Services.Entities.User;
 using Wordstag.Services.Interfaces;

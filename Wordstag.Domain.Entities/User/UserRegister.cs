@@ -3,9 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Wordstag.Domain.Entities.Upload;
 
 namespace Wordstag.Domain.Entities.User
 {
@@ -13,7 +11,7 @@ namespace Wordstag.Domain.Entities.User
     public class UserRegister
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid User_Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
@@ -31,5 +29,7 @@ namespace Wordstag.Domain.Entities.User
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public bool IsDeleted { get; set; }
+        public string UserType { get; set; }
+
     }
 }
