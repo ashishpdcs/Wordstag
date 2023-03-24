@@ -12,6 +12,7 @@ using Wordstag.Domain.Entities.User;
 using Wordstag.Domain.Entities.Product;
 using Wordstag.Domain.Entities.Order;
 using Wordstag.Domain.Entities.Upload;
+using Wordstag.Domain.Entities.UserSample;
 
 namespace Wordstag.Data.Contexts
 {
@@ -103,6 +104,7 @@ namespace Wordstag.Data.Contexts
         public DbSet<Document> documents { get; set; }
         public DbSet<Order> orders { get; set; }
         public DbSet<UploadTbl> uploads { get; set; }
+        public DbSet<UserSample> userSamples { get; set; }
     }
 
     public interface IBaseContext

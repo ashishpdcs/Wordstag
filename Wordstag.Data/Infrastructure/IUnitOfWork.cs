@@ -17,6 +17,7 @@ namespace Wordstag.Data.Infrastructure
         IDocumentRepository<TContext> DocumentRepository { get; }
         IOrderRepository<TContext> OrderRepository { get; }
         IUploadRepository<TContext> UploadRepository { get; }
+        IUserSampleRepository<TContext> UserSampleRepository { get; }
         Task<int> CommitAsync();
 
     }
@@ -35,6 +36,7 @@ namespace Wordstag.Data.Infrastructure
         public IDocumentRepository<TContext> DocumentRepository { get; }
         public IOrderRepository<TContext> OrderRepository { get; }
         public IUploadRepository<TContext> UploadRepository { get; }
+        public IUserSampleRepository<TContext> UserSampleRepository { get; }
         public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
             IUserRegisterRepository<TContext> _userRegisterRepository,
             IRefreshTokenRepository<TContext> refreshTokenRepository,
@@ -46,7 +48,8 @@ namespace Wordstag.Data.Infrastructure
             ILanguageRepository<TContext> languageRepository, 
             IDocumentRepository<TContext> documentRepository, 
             IOrderRepository<TContext> orderRepository,
-            IUploadRepository<TContext> uploadRepository)
+            IUploadRepository<TContext> uploadRepository,
+            IUserSampleRepository<TContext> userSampleRepository)
         {
             this.Context = context;
             this.AccountsRepository = accountsRepository;
@@ -55,12 +58,13 @@ namespace Wordstag.Data.Infrastructure
             this.CountryMasterRepository = countryMasterRepository;
             this.StateMasterRepository = stateMasterRepository;
             this.CityMasterRepository = cityMasterRepository;
-            ProductTypeRepository = productTypeRepository;
-            ProductRepository = productRepository;
-            LanguageRepository = languageRepository;
-            DocumentRepository = documentRepository;
-            OrderRepository = orderRepository;
-            UploadRepository = uploadRepository;
+            this.ProductTypeRepository = productTypeRepository;
+            this.ProductRepository = productRepository;
+            this.LanguageRepository = languageRepository;
+            this.DocumentRepository = documentRepository;
+            this.OrderRepository = orderRepository;
+            this.UploadRepository = uploadRepository;
+            this.UserSampleRepository = userSampleRepository;
         }
         public async Task<int> CommitAsync()
         {
