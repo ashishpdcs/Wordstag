@@ -22,4 +22,11 @@
         public string? CityName { get; set; }
         public int? StateId { get; set; }
     }
+    public class ApproveAndUnApproveDto
+    {
+        public Guid? User_SampleID { get; set; }
+        public string? Approve { get; set; }
+
+        public Guid? Approve_Id { get; set; }
+    }
 }

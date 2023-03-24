@@ -1,4 +1,5 @@
-﻿using Wordstag.Services.Entities.UserSample;
+﻿using Wordstag.Services.Entities.Master;
+using Wordstag.Services.Entities.UserSample;
 
 namespace Wordstag.Services.Interfaces
 {
@@ -9,6 +10,7 @@ namespace Wordstag.Services.Interfaces
         Task<Guid> SaveUserSample(SaveUserSampleDto request);   
         Task<bool> UpdateUserSample(UpdateUserSampleDto request);
         Task<bool> DeleteUserSample(DeleteUserSampleDto request);
+        Task<bool> SetApprove(ApproveAndUnApproveDto request);
 
     }
 }

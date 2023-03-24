@@ -7,6 +7,7 @@ using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Product;
 using Wordstag.Domain.Entities.UserSample;
+using Wordstag.Services.Entities.Master;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.Upload;
 using Wordstag.Services.Entities.User;
@@ -163,7 +164,6 @@ namespace Wordstag.Services.Services
                 Product_TypeId = request.Product_TypeId,
                 Upload_Id = request.Upload_Id,
                 Approve = request.Approve,
-                Approve_Id = request.Approve_Id,
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
@@ -205,5 +205,17 @@ namespace Wordstag.Services.Services
             return false;
         }
 
+        public async Task<bool> SetApprove(ApproveAndUnApproveDto request)
+        {
+            var data = await _readWriteUnitOfWork.UserSampleRepository.GetFirstOrDefaultAsync(x => x.Id == request.User_SampleID);
+            if (data != null)
+            {
+                data.Approve = request.Approve;
+                data.Approve_Id = request.Approve_Id;
+                await _readWriteUnitOfWork.CommitAsync();
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -4,6 +4,7 @@ using Wordstag.API.Request.Master;
 using Wordstag.API.Requests.User;
 using Wordstag.Domain.Entities.User;
 using Wordstag.Services.Entities.User;
+using Wordstag.Domain.Entities.UserSample;
 
 namespace Wordstag.API.Infrastructure.Automapper
 {
@@ -16,6 +17,9 @@ namespace Wordstag.API.Infrastructure.Automapper
 
             CreateMap<StateMasterRequest, StateMasterDto>();
             CreateMap<StateMaster, StateMasterDto>().ReverseMap();
+
+            CreateMap<ApproveAndUnApproveRequest, ApproveAndUnApproveDto>();
+            CreateMap<UserSample, ApproveAndUnApproveDto>().ReverseMap();
         }
     }
 }
