@@ -54,6 +54,7 @@ namespace Wordstag.Services.Services
                             Gender = userRegisterTB.Gender,
                             UserToken = userRegisterTB.UserToken,
                             UserType = userRegisterTB.UserType,
+                            Isverified = userRegisterTB.Isverified,
                         }).ToList();
             return data;
         }
@@ -77,6 +78,7 @@ namespace Wordstag.Services.Services
                             CountryId = userRegisterTB.CountryId,
                             Zipcode = userRegisterTB.Zipcode,
                             UserType = userRegisterTB.UserType,
+                            Isverified = userRegisterTB.Isverified,
                         }).ToList();
             return data;
         }
@@ -102,6 +104,7 @@ namespace Wordstag.Services.Services
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
                 UserType = request.UserType,
+                Isverified = request.Isverified
             };
             await _readWriteUnitOfWork.UserRegisterRepository.AddAsync(saveUserRegister);
             await _readWriteUnitOfWork.CommitAsync();

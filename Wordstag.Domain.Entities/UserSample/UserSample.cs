@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wordstag.Domain.Entities.UserSample
 {
-    [Table("UserSample")]
+    [Table("User_Sample")]
     public class UserSample
     {
         [Key]

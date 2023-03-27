@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wordstag.Domain.Entities.Product
 {
-    [Table("ProductType")]
+    [Table("Product_Type")]
     public class ProductType
     {
         [Key]
