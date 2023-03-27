@@ -35,8 +35,8 @@ namespace Wordstag.Services.Services
                         select new GetLanguageDto
                         {
                             LanguageId = LanguageTB.LanguageId,
-                            Language_Name = LanguageTB.Language_Name,
-                            Language_Code = LanguageTB.Language_Code,
+                            LanguageName = LanguageTB.LanguageName,
+                            LanguageCode = LanguageTB.LanguageCode,
                             CreatedBy = LanguageTB.CreatedBy,
                             CreatedOn = LanguageTB.CreatedOn, 
                             UpdatedBy = LanguageTB.UpdatedBy,
@@ -50,8 +50,8 @@ namespace Wordstag.Services.Services
                         select new GetLanguageDto
                         {
                             LanguageId = LanguageTB.LanguageId,
-                            Language_Name = LanguageTB.Language_Name,
-                            Language_Code = LanguageTB.Language_Code,
+                            LanguageName = LanguageTB.LanguageName,
+                            LanguageCode = LanguageTB.LanguageCode,
                             CreatedBy = LanguageTB.CreatedBy,
                             CreatedOn = LanguageTB.CreatedOn,
                             UpdatedBy = LanguageTB.UpdatedBy,
@@ -64,8 +64,8 @@ namespace Wordstag.Services.Services
             var saveLanguage = new Language()
             {
                 LanguageId = Guid.NewGuid(),
-                Language_Name = request.Language_Name,
-                Language_Code = request.Language_Code,
+                LanguageName = request.LanguageName,
+                LanguageCode = request.LanguageCode,
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow
             };
@@ -80,8 +80,8 @@ namespace Wordstag.Services.Services
             var data = await _readWriteUnitOfWork.LanguageRepository.GetFirstOrDefaultAsync(x => x.LanguageId == request.LanguageId);
             if (data != null)
             {
-                data.Language_Name = request.Language_Name;
-                data.Language_Code = request.Language_Code;
+                data.LanguageName = request.LanguageName;
+                data.LanguageCode = request.LanguageCode;
                 data.UpdatedBy = request.UpdatedBy;
                 data.UpdatedOn = DateTime.UtcNow;
                 await _readWriteUnitOfWork.CommitAsync();

@@ -7,26 +7,26 @@ namespace Wordstag.Services.Entities.Upload
 {
     public class UploadDto
     {
-        public Guid? Product_Id { get; set; }
-        public Guid? Language_Id { get; set; }
-        public Guid? User_Id { get; set; }
-        public string? Orignal_File { get; set; }
-        public string? Updated_File { get; set; }
-        public string? File_Path { get; set; }
-        public string? File_Size { get; set; }
+        public Guid? ProductId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? UserId { get; set; }
+        public string? OrignalFile { get; set; }
+        public string? UpdatedFile { get; set; }
+        public string? FilePath { get; set; }
+        public string? FileSize { get; set; }
         public Guid CreatedBy { get; set; }
 
     }
     public class GetUploadDto
     {
-        public Guid Upload_Id { get; set; }
-        public Guid? Product_Id { get; set; }
-        public Guid? Language_Id { get; set; }
-        public Guid? User_Id { get; set; }
-        public string? Orignal_File { get; set; }
-        public string? Updated_File { get; set; }
-        public string? File_Path { get; set; }
-        public string? File_Size { get; set; }
+        public Guid UploadId { get; set; }
+        public Guid? ProductId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? UserId { get; set; }
+        public string? OrignalFile { get; set; }
+        public string? UpdatedFile { get; set; }
+        public string? FilePath { get; set; }
+        public string? FileSize { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
@@ -38,25 +38,25 @@ namespace Wordstag.Services.Entities.Upload
     }
     public class SaveUploadDto
     {
-        public Guid? Product_Id { get; set; }
-        public Guid? Language_Id { get; set; }
-        public Guid? User_Id { get; set; }
-        public string? Orignal_File { get; set; }
-        public string? File_Path { get; set; }
-        public string? File_Size { get; set; }
+        public Guid? ProductId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? UserId { get; set; }
+        public string? OrignalFile { get; set; }
+        public string? FilePath { get; set; }
+        public string? FileSize { get; set; }
         public DateTime? CreatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
     }
     public class UpdateUploadDto
     {
-        public Guid Upload_Id { get; set; }
-        public Guid? Product_Id { get; set; }
-        public Guid? Language_Id { get; set; }
-        public Guid? User_Id { get; set; }
-        public string? Updated_File { get; set; }
-        public string? File_Path { get; set; }
-        public string? File_Size { get; set; }
+        public Guid UploadId { get; set; }
+        public Guid? ProductId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? UserId { get; set; }
+        public string? UpdatedFile { get; set; }
+        public string? FilePath { get; set; }
+        public string? FileSize { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
@@ -64,6 +64,6 @@ namespace Wordstag.Services.Entities.Upload
     }
     public class DeleteUploadDto
     {
-        public Guid Upload_Id { get; set; }
+        public Guid UploadId { get; set; }
     }
 }

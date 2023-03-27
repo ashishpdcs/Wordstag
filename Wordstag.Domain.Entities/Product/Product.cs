@@ -8,13 +8,13 @@ namespace Wordstag.Domain.Entities.Product
     public class Product
     {
         [Key]
-        public Guid Product_Id { get; set; }
-        public string? Product_Name { get; set; }
+        public Guid ProductId { get; set; }
+        public string? ProductName { get; set; }
         public string? Description { get; set; }
         public decimal? Price { get; set; }
-        public Guid Product_TypeId { get; set; }
-        public string? From_Language { get; set; }
-        public string? To_Language { get; set; }
+        public Guid ProductTypeId { get; set; }
+        public string? FromLanguage { get; set; }
+        public string? ToLanguage { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? CreatedBy { get; set; }

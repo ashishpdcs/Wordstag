@@ -25,7 +25,7 @@ namespace Wordstag.Services.Entities.User
 
     public class GetUserRegisterDto
     {
-        public Guid User_Id { get; set; }
+        public Guid UserId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
@@ -69,7 +69,7 @@ namespace Wordstag.Services.Entities.User
     }
     public class UpdateUserRegisterDto
     {
-        public Guid User_Id { get; set; }
+        public Guid UserId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
@@ -91,7 +91,7 @@ namespace Wordstag.Services.Entities.User
     }
     public class DeleteUserRegisterDto
     {
-        public Guid User_Id { get; set; }
+        public Guid UserId { get; set; }
     }
 
 }

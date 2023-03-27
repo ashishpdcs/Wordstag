@@ -39,45 +39,45 @@ namespace Wordstag.Services.Services
         public async Task<List<GetOrderDto>> GetOrder(GetOrderDto request)
         {
             var data = (from OrderTB in _readOnlyUnitOfWork.OrderRepository.GetAllAsQuerable()
-                        where OrderTB.Order_Id == request.Order_Id && OrderTB.IsDeleted != true
+                        where OrderTB.OrderId == request.OrderId && OrderTB.IsDeleted != true
                         select new GetOrderDto
                         {
-                            Order_Id = OrderTB.Order_Id,
-                            Product_Id = OrderTB.Product_Id,
-                            Language_Id = OrderTB.Language_Id,
-                            User_Id = OrderTB.User_Id,
-                            Upload_Id = OrderTB.Upload_Id,
-                            Sample_Id = OrderTB.Sample_Id,
+                            OrderId = OrderTB.OrderId,
+                            ProductId = OrderTB.ProductId,
+                            LanguageId = OrderTB.LanguageId,
+                            UserId = OrderTB.UserId,
+                            UploadId = OrderTB.UploadId,
+                            SampleId = OrderTB.SampleId,
                             CreatedBy = OrderTB.CreatedBy,
                             CreatedOn = OrderTB.CreatedOn,
                             UpdatedBy = OrderTB.UpdatedBy,
                             UpdatedOn = OrderTB.UpdatedOn,
                             IsDeleted = OrderTB.IsDeleted,
                             productDtos = (from producttbl in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
-                                           where producttbl.IsDeleted != true && producttbl.Product_Id == OrderTB.Product_Id
+                                           where producttbl.IsDeleted != true && producttbl.ProductId == OrderTB.ProductId
                                            select new GetProductDto
                                            {
-                                               Product_Id = producttbl.Product_Id,
-                                               Product_Name = producttbl.Product_Name,
+                                               ProductId = producttbl.ProductId,
+                                               ProductName = producttbl.ProductName,
                                                Description = producttbl.Description,
                                                Price = producttbl.Price,
-                                               Product_TypeId = producttbl.Product_TypeId,
-                                               From_Language = producttbl.From_Language,
-                                               To_Language = producttbl.To_Language
+                                               ProductTypeId = producttbl.ProductTypeId,
+                                               FromLanguage = producttbl.FromLanguage,
+                                               ToLanguage = producttbl.ToLanguage
                                            }).ToList(),
                             LanguageDtos = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
-                                            where LanguageTB.LanguageId == OrderTB.Language_Id
+                                            where LanguageTB.LanguageId == OrderTB.LanguageId
                                             select new GetLanguageDto
                                             {
                                                 LanguageId = LanguageTB.LanguageId,
-                                                Language_Name = LanguageTB.Language_Name,
-                                                Language_Code = LanguageTB.Language_Code
+                                                LanguageName = LanguageTB.LanguageName,
+                                                LanguageCode = LanguageTB.LanguageCode
                                             }).ToList(),
                             UserRegisterDtos = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
-                                                where userRegisterTB.IsDeleted != true && userRegisterTB.User_Id == OrderTB.User_Id
+                                                where userRegisterTB.IsDeleted != true && userRegisterTB.UserId == OrderTB.UserId
                                                 select new GetUserRegisterDto
                                                 {
-                                                    User_Id = userRegisterTB.User_Id,
+                                                    UserId = userRegisterTB.UserId,
                                                     FirstName = userRegisterTB.FirstName,
                                                     LastName = userRegisterTB.LastName,
                                                     Password = userRegisterTB.Password,
@@ -87,17 +87,17 @@ namespace Wordstag.Services.Services
                                                     UserType = userRegisterTB.UserType,
                                                 }).ToList(),
                             UploadDtos = (from UploadTB in _readOnlyUnitOfWork.UploadRepository.GetAllAsQuerable()
-                                          where UploadTB.IsDeleted != true && UploadTB.Upload_Id == OrderTB.Upload_Id
+                                          where UploadTB.IsDeleted != true && UploadTB.UploadId == OrderTB.UploadId
                                           select new GetUploadDto
                                           {
-                                              Upload_Id = UploadTB.Upload_Id,
-                                              Product_Id = UploadTB.Product_Id,
-                                              Language_Id = UploadTB.Language_Id,
-                                              User_Id = UploadTB.User_Id,
-                                              Orignal_File = UploadTB.Orignal_File,
-                                              Updated_File = UploadTB.Updated_File,
-                                              File_Path = UploadTB.File_Path,
-                                              File_Size = UploadTB.File_Size,
+                                              UploadId = UploadTB.UploadId,
+                                              ProductId = UploadTB.ProductId,
+                                              LanguageId = UploadTB.LanguageId,
+                                              UserId = UploadTB.UserId,
+                                              OrignalFile = UploadTB.OrignalFile,
+                                              UpdatedFile = UploadTB.UpdatedFile,
+                                              FilePath = UploadTB.FilePath,
+                                              FileSize = UploadTB.FileSize,
                                           }).ToList()
                         }).ToList();
             return data;
@@ -108,42 +108,42 @@ namespace Wordstag.Services.Services
                         where OrderTB.IsDeleted != true
                         select new GetOrderDto
                         {
-                            Order_Id = OrderTB.Order_Id,
-                            Product_Id = OrderTB.Product_Id,
-                            Language_Id = OrderTB.Language_Id,
-                            User_Id = OrderTB.User_Id,
-                            Upload_Id = OrderTB.Upload_Id,
-                            Sample_Id = OrderTB.Sample_Id,
+                            OrderId = OrderTB.OrderId,
+                            ProductId = OrderTB.ProductId,
+                            LanguageId = OrderTB.LanguageId,
+                            UserId = OrderTB.UserId,
+                            UploadId = OrderTB.UploadId,
+                            SampleId = OrderTB.SampleId,
                             CreatedBy = OrderTB.CreatedBy,
                             CreatedOn = OrderTB.CreatedOn,
                             UpdatedBy = OrderTB.UpdatedBy,
                             UpdatedOn = OrderTB.UpdatedOn,
                             IsDeleted = OrderTB.IsDeleted,
                             productDtos = (from producttbl in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
-                                           where producttbl.IsDeleted != true && producttbl.Product_Id == OrderTB.Product_Id
+                                           where producttbl.IsDeleted != true && producttbl.ProductId == OrderTB.ProductId
                                            select new GetProductDto
                                            {
-                                               Product_Id = producttbl.Product_Id,
-                                               Product_Name = producttbl.Product_Name,
+                                               ProductId = producttbl.ProductId,
+                                               ProductName = producttbl.ProductName,
                                                Description = producttbl.Description,
                                                Price = producttbl.Price,
-                                               Product_TypeId = producttbl.Product_TypeId,
-                                               From_Language = producttbl.From_Language,
-                                               To_Language = producttbl.To_Language
+                                               ProductTypeId = producttbl.ProductTypeId,
+                                               FromLanguage = producttbl.FromLanguage,
+                                               ToLanguage = producttbl.ToLanguage
                                            }).ToList(),
                             LanguageDtos = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
-                                            where LanguageTB.LanguageId == OrderTB.Language_Id
+                                            where LanguageTB.LanguageId == OrderTB.LanguageId
                                             select new GetLanguageDto
                                             {
                                                 LanguageId = LanguageTB.LanguageId,
-                                                Language_Name = LanguageTB.Language_Name,
-                                                Language_Code = LanguageTB.Language_Code
+                                                LanguageName = LanguageTB.LanguageName,
+                                                LanguageCode = LanguageTB.LanguageCode
                                             }).ToList(),
                             UserRegisterDtos = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
-                                                where userRegisterTB.IsDeleted != true && userRegisterTB.User_Id == OrderTB.User_Id
+                                                where userRegisterTB.IsDeleted != true && userRegisterTB.UserId == OrderTB.UserId
                                                 select new GetUserRegisterDto
                                                 {
-                                                    User_Id = userRegisterTB.User_Id,
+                                                    UserId = userRegisterTB.UserId,
                                                     FirstName = userRegisterTB.FirstName,
                                                     LastName = userRegisterTB.LastName,
                                                     Password = userRegisterTB.Password,
@@ -153,17 +153,17 @@ namespace Wordstag.Services.Services
                                                     UserType = userRegisterTB.UserType,
                                                 }).ToList(),
                             UploadDtos = (from UploadTB in _readOnlyUnitOfWork.UploadRepository.GetAllAsQuerable()
-                                          where UploadTB.IsDeleted != true && UploadTB.Upload_Id == OrderTB.Upload_Id
+                                          where UploadTB.IsDeleted != true && UploadTB.UploadId == OrderTB.UploadId
                                           select new GetUploadDto
                                           {
-                                              Upload_Id = UploadTB.Upload_Id,
-                                              Product_Id = UploadTB.Product_Id,
-                                              Language_Id = UploadTB.Language_Id,
-                                              User_Id = UploadTB.User_Id,
-                                              Orignal_File = UploadTB.Orignal_File,
-                                              Updated_File = UploadTB.Updated_File,
-                                              File_Path = UploadTB.File_Path,
-                                              File_Size = UploadTB.File_Size,
+                                              UploadId = UploadTB.UploadId,
+                                              ProductId = UploadTB.ProductId,
+                                              LanguageId = UploadTB.LanguageId,
+                                              UserId = UploadTB.UserId,
+                                              OrignalFile = UploadTB.OrignalFile,
+                                              UpdatedFile = UploadTB.UpdatedFile,
+                                              FilePath = UploadTB.FilePath,
+                                              FileSize = UploadTB.FileSize,
                                           }).ToList()
                         }).ToList();
             return data;
@@ -172,12 +172,12 @@ namespace Wordstag.Services.Services
         {
             var saveOrder = new Order()
             {
-                Order_Id = Guid.NewGuid(),
-                Product_Id = request.Product_Id,
-                Language_Id = request.Language_Id,
-                User_Id = request.User_Id,
-                Upload_Id = request.Upload_Id,
-                Sample_Id = request.Sample_Id,
+                OrderId = Guid.NewGuid(),
+                ProductId = request.ProductId,
+                LanguageId = request.LanguageId,
+                UserId = request.UserId,
+                UploadId = request.UploadId,
+                SampleId = request.SampleId,
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
@@ -185,19 +185,19 @@ namespace Wordstag.Services.Services
             await _readWriteUnitOfWork.OrderRepository.AddAsync(saveOrder);
             await _readWriteUnitOfWork.CommitAsync();
 
-            return saveOrder.Order_Id;
+            return saveOrder.OrderId;
         }
 
         public async Task<bool> UpdateOrder(UpdateOrderDto request)
         {
-            var data = await _readWriteUnitOfWork.OrderRepository.GetFirstOrDefaultAsync(x => x.Order_Id == request.Order_Id);
+            var data = await _readWriteUnitOfWork.OrderRepository.GetFirstOrDefaultAsync(x => x.OrderId == request.OrderId);
             if (data != null)
             {
-                data.Product_Id = request.Product_Id;
-                data.Language_Id = request.Language_Id;
-                data.User_Id = request.User_Id;
-                data.Upload_Id = request.Upload_Id;
-                data.Sample_Id = request.Sample_Id;
+                data.ProductId = request.ProductId;
+                data.LanguageId = request.LanguageId;
+                data.UserId = request.UserId;
+                data.UploadId = request.UploadId;
+                data.SampleId = request.SampleId;
                 data.UpdatedBy = request.UpdatedBy;
                 data.UpdatedOn = DateTime.UtcNow;
                 await _readWriteUnitOfWork.CommitAsync();
@@ -208,7 +208,7 @@ namespace Wordstag.Services.Services
 
         public async Task<bool> DeleteOrder(DeleteOrderDto request)
         {
-            var data = await _readWriteUnitOfWork.OrderRepository.GetFirstOrDefaultAsync(x => x.Order_Id == request.Order_Id);
+            var data = await _readWriteUnitOfWork.OrderRepository.GetFirstOrDefaultAsync(x => x.OrderId == request.OrderId);
             if (data != null)
             {
                 data.IsDeleted = true;

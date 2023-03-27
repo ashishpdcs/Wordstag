@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wordstag.Domain.Entities.Product
 {
-    [Table("Product_Type")]
+    [Table("ProductType")]
     public class ProductType
     {
         [Key]
         public Guid TypeId { get; set; }
-        public string? ProductType_Name { get; set; }
-        public string? ProductType_Description { get; set; }
+        public string? ProductTypeName { get; set; }
+        public string? ProductTypeDescription { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? CreatedBy { get; set; }

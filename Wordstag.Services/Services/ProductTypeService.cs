@@ -35,8 +35,8 @@ namespace Wordstag.Services.Services
                         select new GetProductTypeDto
                         {
                             TypeId = ProductTypeTB.TypeId,
-                            ProductType_Name = ProductTypeTB.ProductType_Name,
-                            ProductType_Description = ProductTypeTB.ProductType_Description,
+                            ProductTypeName = ProductTypeTB.ProductTypeName,
+                            ProductTypeDescription = ProductTypeTB.ProductTypeDescription,
                             CreatedBy = ProductTypeTB.CreatedBy,
                             CreatedOn = ProductTypeTB.CreatedOn, 
                             UpdatedBy = ProductTypeTB.UpdatedBy,
@@ -51,8 +51,8 @@ namespace Wordstag.Services.Services
                         select new GetProductTypeDto
                         {
                             TypeId = ProductTypeTB.TypeId,
-                            ProductType_Name = ProductTypeTB.ProductType_Name,
-                            ProductType_Description = ProductTypeTB.ProductType_Description,
+                            ProductTypeName = ProductTypeTB.ProductTypeName,
+                            ProductTypeDescription = ProductTypeTB.ProductTypeDescription,
                             CreatedBy = ProductTypeTB.CreatedBy,
                             CreatedOn = ProductTypeTB.CreatedOn,
                             UpdatedBy = ProductTypeTB.UpdatedBy,
@@ -65,8 +65,8 @@ namespace Wordstag.Services.Services
             var saveProductType = new ProductType()
             {
                 TypeId = Guid.NewGuid(),
-                ProductType_Name = request.ProductType_Name,
-                ProductType_Description = request.ProductType_Description,
+                ProductTypeName = request.ProductTypeName,
+                ProductTypeDescription = request.ProductTypeDescription,
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
@@ -82,8 +82,8 @@ namespace Wordstag.Services.Services
             var data = await _readWriteUnitOfWork.ProductTypeRepository.GetFirstOrDefaultAsync(x => x.TypeId == request.TypeId);
             if (data != null)
             {
-                data.ProductType_Name = request.ProductType_Name;
-                data.ProductType_Description = request.ProductType_Description;
+                data.ProductTypeName = request.ProductTypeName;
+                data.ProductTypeDescription = request.ProductTypeDescription;
                 data.UpdatedBy = request.UpdatedBy;
                 data.UpdatedOn = DateTime.UtcNow;
                 await _readWriteUnitOfWork.CommitAsync();

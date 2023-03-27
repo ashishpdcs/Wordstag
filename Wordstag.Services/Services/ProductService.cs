@@ -36,28 +36,28 @@ namespace Wordstag.Services.Services
         public async Task<List<GetProductDto>> GetProduct(GetProductDto request)
         {
             var data = (from ProductTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
-                        where ProductTB.Product_Id == request.Product_Id && ProductTB.IsDeleted != true
+                        where ProductTB.ProductId == request.ProductId && ProductTB.IsDeleted != true
                         select new GetProductDto
                         {
-                            Product_Id = ProductTB.Product_Id,
-                            Product_Name = ProductTB.Product_Name,
+                            ProductId = ProductTB.ProductId,
+                            ProductName = ProductTB.ProductName,
                             Description = ProductTB.Description,
                             Price = ProductTB.Price,
-                            Product_TypeId = ProductTB.Product_TypeId,
-                            From_Language = ProductTB.From_Language,
-                            To_Language = ProductTB.To_Language,
+                            ProductTypeId = ProductTB.ProductTypeId,
+                            FromLanguage = ProductTB.FromLanguage,
+                            ToLanguage = ProductTB.ToLanguage,
                             CreatedBy = ProductTB.CreatedBy,
                             CreatedOn = ProductTB.CreatedOn,
                             UpdatedBy = ProductTB.UpdatedBy,
                             UpdatedOn = ProductTB.UpdatedOn,
                             IsDeleted = ProductTB.IsDeleted,
                             productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
-                                            where ProducttypeTB.TypeId == ProductTB.Product_TypeId && ProducttypeTB.IsDeleted != true
+                                            where ProducttypeTB.TypeId == ProductTB.ProductTypeId && ProducttypeTB.IsDeleted != true
                                             select new GetProductTypeDto
                                             {
                                                 TypeId = ProducttypeTB.TypeId,
-                                                ProductType_Name = ProducttypeTB.ProductType_Name,
-                                                ProductType_Description = ProducttypeTB.ProductType_Description,
+                                                ProductTypeName = ProducttypeTB.ProductTypeName,
+                                                ProductTypeDescription = ProducttypeTB.ProductTypeDescription,
                                                 CreatedBy = ProducttypeTB.CreatedBy,
                                                 CreatedOn = ProducttypeTB.CreatedOn,
                                                 UpdatedBy = ProducttypeTB.UpdatedBy,
@@ -72,32 +72,32 @@ namespace Wordstag.Services.Services
                         where ProductTB.IsDeleted != true
                         select new GetProductDto
                         {
-                            Product_Id = ProductTB.Product_Id,
-                            Product_Name = ProductTB.Product_Name,
+                            ProductId = ProductTB.ProductId,
+                            ProductName = ProductTB.ProductName,
                             Description = ProductTB.Description,
                             Price = ProductTB.Price,
-                            Product_TypeId = ProductTB.Product_TypeId,
-                            From_Language = ProductTB.From_Language,
-                            To_Language = ProductTB.To_Language,
+                            ProductTypeId = ProductTB.ProductTypeId,
+                            FromLanguage = ProductTB.FromLanguage,
+                            ToLanguage = ProductTB.ToLanguage,
                             CreatedBy = ProductTB.CreatedBy,
                             CreatedOn = ProductTB.CreatedOn,
                             UpdatedBy = ProductTB.UpdatedBy,
                             UpdatedOn = ProductTB.UpdatedOn,
                             IsDeleted = ProductTB.IsDeleted,
                             productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
-                                            where ProducttypeTB.TypeId == ProductTB.Product_TypeId && ProducttypeTB.IsDeleted != true
+                                            where ProducttypeTB.TypeId == ProductTB.ProductTypeId && ProducttypeTB.IsDeleted != true
                                             select new GetProductTypeDto
                                             {
                                                 TypeId = ProducttypeTB.TypeId,
-                                                ProductType_Name = ProducttypeTB.ProductType_Name,
-                                                ProductType_Description = ProducttypeTB.ProductType_Description,
+                                                ProductTypeName = ProducttypeTB.ProductTypeName,
+                                                ProductTypeDescription = ProducttypeTB.ProductTypeDescription,
                                                 CreatedBy = ProducttypeTB.CreatedBy,
                                                 CreatedOn = ProducttypeTB.CreatedOn,
                                                 UpdatedBy = ProducttypeTB.UpdatedBy,
                                                 UpdatedOn = ProducttypeTB.UpdatedOn,
                                             }).ToList(),
                         }).ToList();
-            //var data = _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable().Include(P => P.productTypes).ToList();
+            //var data = readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable().Include(P => P.productTypes).ToList();
             //var productmodel = data.Select(P => new GetProductDto
             //{
             //    Product_Id = P.Product_Id,
@@ -129,13 +129,13 @@ namespace Wordstag.Services.Services
         {
             var saveProduct = new Product()
             {
-                Product_Id = Guid.NewGuid(),
-                Product_Name = request.Product_Name,
+                ProductId = Guid.NewGuid(),
+                ProductName = request.ProductName,
                 Description = request.Description,
                 Price = request.Price,
-                Product_TypeId = request.Product_TypeId,
-                From_Language = request.From_Language,
-                To_Language = request.To_Language,
+                ProductTypeId = request.ProductTypeId,
+                FromLanguage = request.FromLanguage,
+                ToLanguage = request.ToLanguage,
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
@@ -143,20 +143,20 @@ namespace Wordstag.Services.Services
             await _readWriteUnitOfWork.ProductRepository.AddAsync(saveProduct);
             await _readWriteUnitOfWork.CommitAsync();
 
-            return saveProduct.Product_Id;
+            return saveProduct.ProductId;
         }
 
         public async Task<bool> UpdateProduct(UpdateProductDto request)
         {
-            var data = await _readWriteUnitOfWork.ProductRepository.GetFirstOrDefaultAsync(x => x.Product_Id == request.Product_Id);
+            var data = await _readWriteUnitOfWork.ProductRepository.GetFirstOrDefaultAsync(x => x.ProductId == request.ProductId);
             if (data != null)
             {
-                data.Product_Name = request.Product_Name;
+                data.ProductName = request.ProductName;
                 data.Description = request.Description;
                 data.Price = request.Price;
-                data.Product_TypeId = request.Product_TypeId;
-                data.From_Language = request.From_Language;
-                data.To_Language = request.To_Language;
+                data.ProductTypeId = request.ProductTypeId;
+                data.FromLanguage = request.FromLanguage;
+                data.ToLanguage = request.ToLanguage;
                 data.UpdatedBy = request.UpdatedBy;
                 data.UpdatedOn = DateTime.UtcNow;
                 await _readWriteUnitOfWork.CommitAsync();
@@ -167,7 +167,7 @@ namespace Wordstag.Services.Services
 
         public async Task<bool> DeleteProduct(DeleteProductDto request)
         {
-            var data = await _readWriteUnitOfWork.ProductRepository.GetFirstOrDefaultAsync(x => x.Product_Id == request.Product_Id);
+            var data = await _readWriteUnitOfWork.ProductRepository.GetFirstOrDefaultAsync(x => x.ProductId == request.ProductId);
             if (data != null)
             {
                 data.IsDeleted = true;

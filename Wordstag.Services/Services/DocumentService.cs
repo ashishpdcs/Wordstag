@@ -31,12 +31,12 @@ namespace Wordstag.Services.Services
         public async Task<List<GetDocumentDto>> GetDocument(GetDocumentDto request)
         {
             var data = (from DocumentTB in _readOnlyUnitOfWork.DocumentRepository.GetAllAsQuerable()
-                        where DocumentTB.Document_Id == request.Document_Id
+                        where DocumentTB.DocumentId == request.DocumentId
                         select new GetDocumentDto
                         {
-                            Document_Id = DocumentTB.Document_Id,
-                            Document_Name = DocumentTB.Document_Name,
-                            Document_Description = DocumentTB.Document_Description,
+                            DocumentId = DocumentTB.DocumentId,
+                            DocumentName = DocumentTB.DocumentName,
+                            DocumentDescription = DocumentTB.DocumentDescription,
                             CreatedBy = DocumentTB.CreatedBy,
                             CreatedOn = DocumentTB.CreatedOn, 
                             UpdatedBy = DocumentTB.UpdatedBy,
@@ -49,9 +49,9 @@ namespace Wordstag.Services.Services
             var data = (from DocumentTB in _readOnlyUnitOfWork.DocumentRepository.GetAllAsQuerable()
                         select new GetDocumentDto
                         {
-                            Document_Id = DocumentTB.Document_Id,
-                            Document_Name = DocumentTB.Document_Name,
-                            Document_Description = DocumentTB.Document_Description,
+                            DocumentId = DocumentTB.DocumentId,
+                            DocumentName = DocumentTB.DocumentName,
+                            DocumentDescription = DocumentTB.DocumentDescription,
                             CreatedBy = DocumentTB.CreatedBy,
                             CreatedOn = DocumentTB.CreatedOn,
                             UpdatedBy = DocumentTB.UpdatedBy,
@@ -63,25 +63,25 @@ namespace Wordstag.Services.Services
         {
             var saveDocument = new Document()
             {
-                Document_Id = Guid.NewGuid(),
-                Document_Name = request.Document_Name,
-                Document_Description = request.Document_Description,
+                DocumentId = Guid.NewGuid(),
+                DocumentName = request.DocumentName,
+                DocumentDescription = request.DocumentDescription,
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
             };
             await _readWriteUnitOfWork.DocumentRepository.AddAsync(saveDocument);
             await _readWriteUnitOfWork.CommitAsync();
 
-            return saveDocument.Document_Id;
+            return saveDocument.DocumentId;
         }
 
         public async Task<bool> UpdateDocument(UpdateDocumentDto request)
         {
-            var data = await _readWriteUnitOfWork.DocumentRepository.GetFirstOrDefaultAsync(x => x.Document_Id == request.Document_Id);
+            var data = await _readWriteUnitOfWork.DocumentRepository.GetFirstOrDefaultAsync(x => x.DocumentId == request.DocumentId);
             if (data != null)
             {
-                data.Document_Name = request.Document_Name;
-                data.Document_Description = request.Document_Description;
+                data.DocumentName = request.DocumentName;
+                data.DocumentDescription = request.DocumentDescription;
                 data.UpdatedBy = request.UpdatedBy;
                 data.UpdatedOn = DateTime.UtcNow;
                 await _readWriteUnitOfWork.CommitAsync();

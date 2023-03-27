@@ -11,7 +11,7 @@ namespace Wordstag.Domain.Entities.User
     public class UserRegister
     {
         [Key]
-        public Guid User_Id { get; set; }
+        public Guid UserId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? EmailAddress { get; set; }
@@ -28,8 +28,8 @@ namespace Wordstag.Domain.Entities.User
         public int? Zipcode { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
-        public bool IsDeleted { get; set; }
-        public string UserType { get; set; }
+        public bool? IsDeleted { get; set; }
+        public string? UserType { get; set; }
 
     }
 }

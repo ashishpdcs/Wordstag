@@ -7,9 +7,9 @@ namespace Wordstag.Domain.Entities.Product
     public class Document
     {
         [Key]
-        public Guid Document_Id { get; set; }
-        public string? Document_Name { get; set; }
-        public string? Document_Description { get; set; }
+        public Guid DocumentId { get; set; }
+        public string? DocumentName { get; set; }
+        public string? DocumentDescription { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? CreatedBy { get; set; }

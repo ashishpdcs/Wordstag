@@ -44,26 +44,26 @@ namespace Wordstag.Services.Services
                         select new GetUserSampleDto
                         {
                             Id = SampleTB.Id,
-                            Language_Id = SampleTB.Language_Id,
-                            User_Id = SampleTB.User_Id,
-                            Product_TypeId = SampleTB.Product_TypeId,
-                            Upload_Id = SampleTB.Upload_Id,
+                            LanguageId = SampleTB.LanguageId,
+                            UserId = SampleTB.UserId,
+                            ProductTypeId = SampleTB.ProductTypeId,
+                            UploadId = SampleTB.UploadId,
                             Approve = SampleTB.Approve,
-                            Approve_Id = SampleTB.Approve_Id,
+                            ApproveId = SampleTB.ApproveId,
                             CreatedOn = SampleTB.CreatedOn,
                             getLanguageDtos = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
-                                               where LanguageTB.LanguageId == SampleTB.Language_Id
+                                               where LanguageTB.LanguageId == SampleTB.LanguageId
                                                select new GetLanguageDto
                                                {
                                                    LanguageId = LanguageTB.LanguageId,
-                                                   Language_Name = LanguageTB.Language_Name,
-                                                   Language_Code = LanguageTB.Language_Code
+                                                   LanguageName = LanguageTB.LanguageName,
+                                                   LanguageCode = LanguageTB.LanguageCode
                                                }).ToList(),
                             getUserRegisterDtos = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
-                                                   where userRegisterTB.IsDeleted != true && userRegisterTB.User_Id == SampleTB.User_Id
+                                                   where userRegisterTB.IsDeleted != true && userRegisterTB.UserId == SampleTB.UserId
                                                    select new GetUserRegisterDto
                                                    {
-                                                       User_Id = userRegisterTB.User_Id,
+                                                       UserId = userRegisterTB.UserId,
                                                        FirstName = userRegisterTB.FirstName,
                                                        LastName = userRegisterTB.LastName,
                                                        Password = userRegisterTB.Password,
@@ -73,25 +73,25 @@ namespace Wordstag.Services.Services
                                                        UserType = userRegisterTB.UserType,
                                                    }).ToList(),
                             getUploadDtos = (from UploadTB in _readOnlyUnitOfWork.UploadRepository.GetAllAsQuerable()
-                                             where UploadTB.IsDeleted != true && UploadTB.Upload_Id == SampleTB.Upload_Id
+                                             where UploadTB.IsDeleted != true && UploadTB.UploadId == SampleTB.UploadId
                                              select new GetUploadDto
                                              {
-                                                 Upload_Id = UploadTB.Upload_Id,
-                                                 Product_Id = UploadTB.Product_Id,
-                                                 Language_Id = UploadTB.Language_Id,
-                                                 User_Id = UploadTB.User_Id,
-                                                 Orignal_File = UploadTB.Orignal_File,
-                                                 Updated_File = UploadTB.Updated_File,
-                                                 File_Path = UploadTB.File_Path,
-                                                 File_Size = UploadTB.File_Size,
+                                                 UploadId = UploadTB.UploadId,
+                                                 ProductId = UploadTB.ProductId,
+                                                 LanguageId = UploadTB.LanguageId,
+                                                 UserId = UploadTB.UserId,
+                                                 OrignalFile = UploadTB.OrignalFile,
+                                                 UpdatedFile = UploadTB.UpdatedFile,
+                                                 FilePath = UploadTB.FilePath,
+                                                 FileSize = UploadTB.FileSize,
                                              }).ToList(),
                             getProductTypeDtos = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
-                                                  where ProducttypeTB.TypeId == SampleTB.Product_TypeId && ProducttypeTB.IsDeleted != true
+                                                  where ProducttypeTB.TypeId == SampleTB.ProductTypeId && ProducttypeTB.IsDeleted != true
                                                   select new GetProductTypeDto
                                                   {
                                                       TypeId = ProducttypeTB.TypeId,
-                                                      ProductType_Name = ProducttypeTB.ProductType_Name,
-                                                      ProductType_Description = ProducttypeTB.ProductType_Description,
+                                                      ProductTypeName = ProducttypeTB.ProductTypeName,
+                                                      ProductTypeDescription = ProducttypeTB.ProductTypeDescription,
                                                   }).ToList(),
                         }).ToList();
             return data;
@@ -102,26 +102,26 @@ namespace Wordstag.Services.Services
                         select new GetUserSampleDto
                         {
                             Id = SampleTB.Id,
-                            Language_Id = SampleTB.Language_Id,
-                            User_Id = SampleTB.User_Id,
-                            Product_TypeId = SampleTB.Product_TypeId,
-                            Upload_Id = SampleTB.Upload_Id,
+                            LanguageId = SampleTB.LanguageId,
+                            UserId = SampleTB.UserId,
+                            ProductTypeId = SampleTB.ProductTypeId,
+                            UploadId = SampleTB.UploadId,
                             Approve = SampleTB.Approve,
-                            Approve_Id = SampleTB.Approve_Id,
+                            ApproveId = SampleTB.ApproveId,
                             CreatedOn = SampleTB.CreatedOn,
                             getLanguageDtos = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
-                                               where LanguageTB.LanguageId == SampleTB.Language_Id
+                                               where LanguageTB.LanguageId == SampleTB.LanguageId
                                                select new GetLanguageDto
                                                {
                                                    LanguageId = LanguageTB.LanguageId,
-                                                   Language_Name = LanguageTB.Language_Name,
-                                                   Language_Code = LanguageTB.Language_Code
+                                                   LanguageName = LanguageTB.LanguageName,
+                                                   LanguageCode = LanguageTB.LanguageCode
                                                }).ToList(),
                             getUserRegisterDtos = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
-                                                   where userRegisterTB.IsDeleted != true && userRegisterTB.User_Id == SampleTB.User_Id
+                                                   where userRegisterTB.IsDeleted != true && userRegisterTB.UserId == SampleTB.UserId
                                                    select new GetUserRegisterDto
                                                    {
-                                                       User_Id = userRegisterTB.User_Id,
+                                                       UserId = userRegisterTB.UserId,
                                                        FirstName = userRegisterTB.FirstName,
                                                        LastName = userRegisterTB.LastName,
                                                        Password = userRegisterTB.Password,
@@ -131,25 +131,25 @@ namespace Wordstag.Services.Services
                                                        UserType = userRegisterTB.UserType,
                                                    }).ToList(),
                             getUploadDtos = (from UploadTB in _readOnlyUnitOfWork.UploadRepository.GetAllAsQuerable()
-                                             where UploadTB.IsDeleted != true && UploadTB.Upload_Id == SampleTB.Upload_Id
+                                             where UploadTB.IsDeleted != true && UploadTB.UploadId == SampleTB.UploadId
                                              select new GetUploadDto
                                              {
-                                                 Upload_Id = UploadTB.Upload_Id,
-                                                 Product_Id = UploadTB.Product_Id,
-                                                 Language_Id = UploadTB.Language_Id,
-                                                 User_Id = UploadTB.User_Id,
-                                                 Orignal_File = UploadTB.Orignal_File,
-                                                 Updated_File = UploadTB.Updated_File,
-                                                 File_Path = UploadTB.File_Path,
-                                                 File_Size = UploadTB.File_Size,
+                                                 UploadId = UploadTB.UploadId,
+                                                 ProductId = UploadTB.ProductId,
+                                                 LanguageId = UploadTB.LanguageId,
+                                                 UserId = UploadTB.UserId,
+                                                 OrignalFile = UploadTB.OrignalFile,
+                                                 UpdatedFile = UploadTB.UpdatedFile,
+                                                 FilePath = UploadTB.FilePath,
+                                                 FileSize = UploadTB.FileSize,
                                              }).ToList(),
                             getProductTypeDtos = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
-                                                  where ProducttypeTB.TypeId == SampleTB.Product_TypeId && ProducttypeTB.IsDeleted != true
+                                                  where ProducttypeTB.TypeId == SampleTB.ProductTypeId && ProducttypeTB.IsDeleted != true
                                                   select new GetProductTypeDto
                                                   {
                                                       TypeId = ProducttypeTB.TypeId,
-                                                      ProductType_Name = ProducttypeTB.ProductType_Name,
-                                                      ProductType_Description = ProducttypeTB.ProductType_Description,
+                                                      ProductTypeName = ProducttypeTB.ProductTypeName,
+                                                      ProductTypeDescription = ProducttypeTB.ProductTypeDescription,
                                                   }).ToList(),
                         }).ToList();
             return data;
@@ -159,10 +159,10 @@ namespace Wordstag.Services.Services
             var saveSample = new UserSample()
             {
                 Id = Guid.NewGuid(),
-                Language_Id = request.Language_Id,
-                User_Id = request.User_Id,
-                Product_TypeId = request.Product_TypeId,
-                Upload_Id = request.Upload_Id,
+                LanguageId = request.LanguageId,
+                UserId = request.UserId,
+                ProductTypeId = request.ProductTypeId,
+                UploadId = request.UploadId,
                 Approve = request.Approve,
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
@@ -179,11 +179,11 @@ namespace Wordstag.Services.Services
             var data = await _readWriteUnitOfWork.UserSampleRepository.GetFirstOrDefaultAsync(x => x.Id == request.Id);
             if (data != null)
             {
-                data.Language_Id = request.Language_Id;
-                data.User_Id = request.User_Id;
-                data.Upload_Id = request.Upload_Id;
-                data.Product_TypeId = request.Product_TypeId;
-                data.Approve_Id = request.Approve_Id;
+                data.LanguageId = request.LanguageId;
+                data.UserId = request.UserId;
+                data.UploadId = request.UploadId;
+                data.ProductTypeId = request.ProductTypeId;
+                data.ApproveId = request.ApproveId;
                 data.Approve = request.Approve;
                 data.UpdatedBy = request.UpdatedBy;
                 data.UpdatedOn = DateTime.UtcNow;
@@ -211,7 +211,7 @@ namespace Wordstag.Services.Services
             if (data != null)
             {
                 data.Approve = request.Approve;
-                data.Approve_Id = request.Approve_Id;
+                data.ApproveId = request.Approve_Id;
                 await _readWriteUnitOfWork.CommitAsync();
                 return true;
             }

@@ -7,24 +7,24 @@ namespace Wordstag.Services.Entities.UserSample
     public class UserSampleDto
     {
         public Guid? Id { get; set; }
-        public Guid? Language_Id { get; set; }
-        public Guid? User_Id { get; set; }
-        public Guid? Upload_Id { get; set; }
-        public Guid Product_TypeId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? UploadId { get; set; }
+        public Guid ProductTypeId { get; set; }
         public string? Approve { get; set; }
-        public Guid? Approve_Id { get; set; }
+        public Guid? ApproveId { get; set; }
         public Guid CreatedBy { get; set; }
 
     }
     public class GetUserSampleDto
     {
         public Guid? Id { get; set; }
-        public Guid? Language_Id { get; set; }
-        public Guid? User_Id { get; set; }
-        public Guid? Upload_Id { get; set; }
-        public Guid? Product_TypeId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? UploadId { get; set; }
+        public Guid? ProductTypeId { get; set; }
         public string? Approve { get; set; }
-        public Guid? Approve_Id { get; set; }
+        public Guid? ApproveId { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
@@ -39,24 +39,24 @@ namespace Wordstag.Services.Entities.UserSample
     }
     public class SaveUserSampleDto
     {
-        public Guid? Language_Id { get; set; }
-        public Guid? User_Id { get; set; }
-        public Guid? Upload_Id { get; set; }
-        public Guid Product_TypeId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? UploadId { get; set; }
+        public Guid ProductTypeId { get; set; }
         public string? Approve { get; set; }
-        public Guid? Approve_Id { get; set; }
+        public Guid? ApproveId { get; set; }
         public DateTime? CreatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
     }
     public class UpdateUserSampleDto
     {
         public Guid? Id { get; set; }
-        public Guid? Language_Id { get; set; }
-        public Guid? User_Id { get; set; }
-        public Guid? Upload_Id { get; set; }
-        public Guid Product_TypeId { get; set; }
+        public Guid? LanguageId { get; set; }
+        public Guid? UserId { get; set; }
+        public Guid? UploadId { get; set; }
+        public Guid ProductTypeId { get; set; }
         public string? Approve { get; set; }
-        public Guid? Approve_Id { get; set; }
+        public Guid? ApproveId { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }
 
