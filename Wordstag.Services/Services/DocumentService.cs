@@ -14,19 +14,17 @@ namespace Wordstag.Services.Services
         private readonly ReadWriteApplicationDbContext _readWriteUnitOfWorkSP;
         private readonly IUnitOfWork<MasterDbContext> _masterDBContext;
         private readonly IMapper _mapper;
-        private readonly IFacebookService _facebookService;
 
         public DocumentService(IUnitOfWork<ReadOnlyApplicationDbContext> readOnlyUnitOfWork,
              IUnitOfWork<MasterDbContext> masterDBContext, IMapper mapper,
              IUnitOfWork<ReadWriteApplicationDbContext> readWriteUnitOfWork,
-             ReadWriteApplicationDbContext readWriteUnitOfWorkSP, IFacebookService facebookService)
+             ReadWriteApplicationDbContext readWriteUnitOfWorkSP)
         {
             _readOnlyUnitOfWork = readOnlyUnitOfWork;
             _masterDBContext = masterDBContext;
             _readWriteUnitOfWork = readWriteUnitOfWork;
             _mapper = mapper;
             _readWriteUnitOfWorkSP = readWriteUnitOfWorkSP;
-            _facebookService = facebookService;
         }
         public async Task<List<GetDocumentDto>> GetDocument(GetDocumentDto request)
         {

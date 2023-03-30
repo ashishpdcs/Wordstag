@@ -89,11 +89,11 @@ builder.Services.AddAuthorization(options =>
 
 });
 builder.Services.AddScoped<IAuthorizationHandler, CommercialAuthorizationHandler>();
-var facebookAuthSettings = new FacebookAuthSettings();
-builder.Configuration.Bind(key: nameof(FacebookAuthSettings), facebookAuthSettings);
-builder.Services.AddSingleton(facebookAuthSettings);
+//var facebookAuthSettings = new FacebookAuthSettings();
+//builder.Configuration.Bind(key: nameof(FacebookAuthSettings), facebookAuthSettings);
+//builder.Services.AddSingleton(facebookAuthSettings);
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton<IFacebookService, FacebookService>();
+//builder.Services.AddSingleton<IFacebookService, FacebookService>();
 
 
 var appSettings = appSettingsSection.Get<AppSettings>();
