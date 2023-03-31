@@ -20,6 +20,9 @@ namespace Wordstag.API.Infrastructure.Automapper
 
             CreateMap<DeleteUserSampleRequest, DeleteUserSampleDto>();
             CreateMap<UserSample, DeleteUserSampleDto>().ReverseMap();
+
+            CreateMap<GetUserSampleApprove, GetUserSampleDto>();
+            CreateMap<UserSample, GetUserSampleDto>().ReverseMap();
         }
     }
 }

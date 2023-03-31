@@ -142,5 +142,22 @@ namespace Wordstag.Utility
             return decryptedBytes;
         }
 
+        public static bool checkStringIsValidDateTime(string value)
+        {
+            string[] format = new string[] { "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd"
+                            ,"yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd"
+                            ,"MM-dd-yyyy HH:mm:ss", "MM-dd-yyyy"
+                            ,"MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy"
+                            ,"dd-MM-yyyy HH:mm:ss", "dd-MM-yyyy"
+                            ,"dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy" };
+
+            DateTime datetime;
+
+            if (DateTime.TryParseExact(value, format, System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.NoCurrentDateDefault, out datetime))
+                return true;
+            else
+                return false;
+        }
     }
 }

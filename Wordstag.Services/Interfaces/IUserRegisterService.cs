@@ -1,4 +1,6 @@
-﻿using Wordstag.Services.Entities.User;
+﻿using Wordstag.Services.Entities;
+using Wordstag.Services.Entities.Common;
+using Wordstag.Services.Entities.User;
 
 namespace Wordstag.Services.Interfaces
 {
@@ -6,7 +8,7 @@ namespace Wordstag.Services.Interfaces
     {
         Task<UserRegisterDto> UserRegisterAsync(UserRegisterDto request, string ipAddress);
         Task<List<GetUserRegisterDto>> GetUserRegister(GetUserRegisterDto request);
-        Task<List<GetUserRegisterDto>> GetAllUserRegister();
+        Task<GenericList<GetUserRegisterDto>> GetAllUserRegister(PaginationDto paginationDto);
         Task<Guid> SaveUserRegister(SaveUserRegisterDto request);   
         Task<bool> UpdateUserRegister(UpdateUserRegisterDto request);
         Task<bool> DeleteUserRegister(DeleteUserRegisterDto request);

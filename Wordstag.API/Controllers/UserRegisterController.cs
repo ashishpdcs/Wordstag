@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Wordstag.API.Request.User;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.User;
 using Wordstag.Services.Interfaces;
 using Wordstag.Utility;
@@ -27,9 +28,9 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllUserRegister")]
-        public async Task<Dictionary<string, object>> GetAllUserRegister()
+        public async Task<Dictionary<string, object>> GetAllUserRegister(PaginationDto paginationDto)
         {
-            var result = await _userRegisterService.GetAllUserRegister();
+            var result = await _userRegisterService.GetAllUserRegister(paginationDto);
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
 

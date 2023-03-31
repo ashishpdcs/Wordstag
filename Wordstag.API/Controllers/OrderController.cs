@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Wordstag.API.Request.Order;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Order;
 using Wordstag.Services.Interfaces;
 using Wordstag.Utility;
@@ -26,9 +27,9 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllOrder")]
-        public async Task<Dictionary<string, object>> GetAllOrder()
+        public async Task<Dictionary<string, object>> GetAllOrder(PaginationDto paginationDto)
         {
-            var result = await _OrderService.GetAllOrder();
+            var result = await _OrderService.GetAllOrder(paginationDto);
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
 

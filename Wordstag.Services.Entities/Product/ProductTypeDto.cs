@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Wordstag.Services.Entities.Common;
 
 namespace Wordstag.Services.Entities.Product
 {
@@ -15,7 +11,7 @@ namespace Wordstag.Services.Entities.Product
         public Guid CreatedBy { get; set; }
 
     }
-    public class GetProductTypeDto
+    public class GetProductTypeDto : PaginationDto
     {
         public Guid? TypeId { get; set; }
         public string? ProductTypeName { get; set; }

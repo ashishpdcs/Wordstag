@@ -1,11 +1,16 @@
 ﻿using AutoMapper;
+using System.Linq;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Upload;
+using Wordstag.Services.Entities;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.Upload;
 using Wordstag.Services.Entities.User;
+using Wordstag.Services.Infrastructure;
 using Wordstag.Services.Interfaces;
+using Wordstag.Utility;
 
 namespace Wordstag.Services.Services
 {
@@ -83,9 +88,9 @@ namespace Wordstag.Services.Services
                         }).ToList();
             return data;
         }
-        public async Task<List<GetUploadDto>> GetAllUpload()
+        public async Task<GenericList<GetUploadDto>> GetAllUpload(PaginationDto paginationDto)
         {
-            var data = (from UploadTB in _readOnlyUnitOfWork.UploadRepository.GetAllAsQuerable()
+            var dataQuery = (from UploadTB in _readOnlyUnitOfWork.UploadRepository.GetAllAsQuerable()
                         where UploadTB.IsDeleted != true
                         select new GetUploadDto
                         {
@@ -135,7 +140,37 @@ namespace Wordstag.Services.Services
                                                  Gender = userRegisterTB.Gender,
                                                  UserType = userRegisterTB.UserType,
                                              }).ToList(),
-                        }).ToList();
+                        });
+            if (!string.IsNullOrEmpty(paginationDto.OrderBy))
+            {
+                dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
+            }
+            if (!string.IsNullOrEmpty(paginationDto.GlobalSearch))
+            {
+                dataQuery = dataQuery.Where(x => x.OrignalFile.Contains(paginationDto.GlobalSearch)
+                || (x.OrignalFile != null && x.OrignalFile.Contains(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.CreatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.UpdatedOn != null && x.UpdatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                );
+            }
+
+            // Before calculate count if required any filter then apply that first then applied pagination
+            var dataCount = dataQuery.Count();
+            var data = new GenericList<GetUploadDto>();
+            data.List = paginationDto.PageIndex == 0 ? dataQuery.ToList() : dataQuery.Skip(((paginationDto.PageIndex.Value - 1) * paginationDto.PageSize.Value)).Take(paginationDto.PageSize.Value).ToList();
+            data.TotalCount = dataCount;
+            data.PageCount = dataCount;
+            if (paginationDto.PageSize != null && paginationDto.PageSize != 0)
+            {
+                if (data.TotalCount % paginationDto.PageSize.Value == 0)
+                {
+                    data.PageCount = data.TotalCount / paginationDto.PageSize.Value;
+                }
+                else
+                {
+                    data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
+                }
+            }
             return data;
         }
         public async Task<Guid> SaveUpload(SaveUploadDto request)

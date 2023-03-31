@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Wordstag.API.Request.UserSample;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.UserSample;
 using Wordstag.Services.Interfaces;
 using Wordstag.Utility;
@@ -26,9 +27,9 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllUserSample")]
-        public async Task<Dictionary<string, object>> GetAllUserSample()
+        public async Task<Dictionary<string, object>> GetAllUserSample(PaginationDto paginationDto)
         {
-            var result = await _UserSampleService.GetAllUserSample();
+            var result = await _UserSampleService.GetAllUserSample(paginationDto);
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
 

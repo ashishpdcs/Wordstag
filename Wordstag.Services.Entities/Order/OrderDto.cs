@@ -1,4 +1,5 @@
 ﻿
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.Upload;
 using Wordstag.Services.Entities.User;
@@ -15,9 +16,10 @@ namespace Wordstag.Services.Entities.Order
         public Guid CreatedBy { get; set; }
 
     }
-    public class GetOrderDto
+    public class GetOrderDto : PaginationDto
     {
         public Guid OrderId { get; set; }
+        public string? OrderNo { get; set; }
         public Guid? ProductId { get; set; }
         public Guid? LanguageId { get; set; }
         public Guid? UserId { get; set; }
@@ -37,6 +39,7 @@ namespace Wordstag.Services.Entities.Order
     }
     public class SaveOrderDto
     {
+        public string? OrderNo { get; set; }
         public Guid? ProductId { get; set; }
         public Guid? LanguageId { get; set; }
         public Guid? UserId { get; set; }

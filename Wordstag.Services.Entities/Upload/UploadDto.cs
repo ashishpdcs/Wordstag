@@ -1,5 +1,6 @@
 ﻿
 using Wordstag.Domain.Entities.User;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.User;
 
@@ -17,7 +18,7 @@ namespace Wordstag.Services.Entities.Upload
         public Guid CreatedBy { get; set; }
 
     }
-    public class GetUploadDto
+    public class GetUploadDto : PaginationDto
     {
         public Guid UploadId { get; set; }
         public Guid? ProductId { get; set; }

@@ -2,16 +2,21 @@
 using MailKit.Search;
 using NPOI.OpenXmlFormats.Wordprocessing;
 using NPOI.SS.Formula.Functions;
+using System.Linq;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Order;
 using Wordstag.Domain.Entities.Product;
 using Wordstag.Domain.Entities.Upload;
+using Wordstag.Services.Entities;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Order;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.Upload;
 using Wordstag.Services.Entities.User;
+using Wordstag.Services.Infrastructure;
 using Wordstag.Services.Interfaces;
+using Wordstag.Utility;
 
 namespace Wordstag.Services.Services
 {
@@ -40,6 +45,7 @@ namespace Wordstag.Services.Services
                         select new GetOrderDto
                         {
                             OrderId = OrderTB.OrderId,
+                            OrderNo = OrderTB.OrderNo,
                             ProductId = OrderTB.ProductId,
                             LanguageId = OrderTB.LanguageId,
                             UserId = OrderTB.UserId,
@@ -99,13 +105,14 @@ namespace Wordstag.Services.Services
                         }).ToList();
             return data;
         }
-        public async Task<List<GetOrderDto>> GetAllOrder()
+        public async Task<GenericList<GetOrderDto>> GetAllOrder(PaginationDto paginationDto)
         {
-            var data = (from OrderTB in _readOnlyUnitOfWork.OrderRepository.GetAllAsQuerable()
+            var dataQuery = (from OrderTB in _readOnlyUnitOfWork.OrderRepository.GetAllAsQuerable()
                         where OrderTB.IsDeleted != true
                         select new GetOrderDto
                         {
                             OrderId = OrderTB.OrderId,
+                            OrderNo = OrderTB.OrderNo,
                             ProductId = OrderTB.ProductId,
                             LanguageId = OrderTB.LanguageId,
                             UserId = OrderTB.UserId,
@@ -162,14 +169,47 @@ namespace Wordstag.Services.Services
                                               FilePath = UploadTB.FilePath,
                                               FileSize = UploadTB.FileSize,
                                           }).ToList()
-                        }).ToList();
+                        });
+            if (!string.IsNullOrEmpty(paginationDto.OrderBy))
+            {
+                dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
+            }
+            if (!string.IsNullOrEmpty(paginationDto.GlobalSearch))
+            {
+                dataQuery = dataQuery.Where(x => x.OrderNo.Contains(paginationDto.GlobalSearch)
+                || (x.OrderNo != null && x.OrderNo.Contains(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.CreatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.UpdatedOn != null && x.UpdatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                );
+            }
+
+            // Before calculate count if required any filter then apply that first then applied pagination
+            var dataCount = dataQuery.Count();
+            var data = new GenericList<GetOrderDto>();
+            data.List = paginationDto.PageIndex == 0 ? dataQuery.ToList() : dataQuery.Skip(((paginationDto.PageIndex.Value - 1) * paginationDto.PageSize.Value)).Take(paginationDto.PageSize.Value).ToList();
+            data.TotalCount = dataCount;
+            data.PageCount = dataCount;
+            if (paginationDto.PageSize != null && paginationDto.PageSize != 0)
+            {
+                if (data.TotalCount % paginationDto.PageSize.Value == 0)
+                {
+                    data.PageCount = data.TotalCount / paginationDto.PageSize.Value;
+                }
+                else
+                {
+                    data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
+                }
+            }
             return data;
         }
         public async Task<Guid> SaveOrder(SaveOrderDto request)
         {
+            Random random = new Random();
+            string randomNumberString = random.Next(100000, 999999).ToString();
             var saveOrder = new Order()
             {
                 OrderId = Guid.NewGuid(),
+                OrderNo = randomNumberString,
                 ProductId = request.ProductId,
                 LanguageId = request.LanguageId,
                 UserId = request.UserId,

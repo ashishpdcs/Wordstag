@@ -42,4 +42,8 @@
     {
         public Guid Id { get; set; }
     }
+    public class GetUserSampleApprove
+    {
+        public string? Approve { get; set; }
+    }
 }

@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
 using NPOI.SS.Formula.Functions;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Linq;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.User;
+using Wordstag.Services.Entities;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.User;
+using Wordstag.Services.Entities.UserSample;
+using Wordstag.Services.Infrastructure;
 using Wordstag.Services.Interfaces;
 using Wordstag.Utility;
 
@@ -56,9 +61,9 @@ namespace Wordstag.Services.Services
                         }).ToList();
             return data;
         }
-        public async Task<List<GetUserRegisterDto>> GetAllUserRegister()
+        public async Task<GenericList<GetUserRegisterDto>> GetAllUserRegister(PaginationDto paginationDto)
         {
-            var data = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
+            var dataQuery = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
                         where userRegisterTB.IsDeleted == false && userRegisterTB.UserType == "User"
                         select new GetUserRegisterDto
                         {
@@ -77,7 +82,37 @@ namespace Wordstag.Services.Services
                             Zipcode = userRegisterTB.Zipcode,
                             UserType = userRegisterTB.UserType,
                             Isverified = userRegisterTB.Isverified,
-                        }).ToList();
+                        });
+            if (!string.IsNullOrEmpty(paginationDto.OrderBy))
+            {
+                dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
+            }
+            if (!string.IsNullOrEmpty(paginationDto.GlobalSearch))
+            {
+                dataQuery = dataQuery.Where(x => x.UserName.Contains(paginationDto.GlobalSearch)
+                || (x.UserName != null && x.UserName.Contains(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.CreatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.UpdatedOn != null && x.UpdatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                );
+            }
+
+            // Before calculate count if required any filter then apply that first then applied pagination
+            var dataCount = dataQuery.Count();
+            var data = new GenericList<GetUserRegisterDto>();
+            data.List = paginationDto.PageIndex == 0 ? dataQuery.ToList() : dataQuery.Skip(((paginationDto.PageIndex.Value - 1) * paginationDto.PageSize.Value)).Take(paginationDto.PageSize.Value).ToList();
+            data.TotalCount = dataCount;
+            data.PageCount = dataCount;
+            if (paginationDto.PageSize != null && paginationDto.PageSize != 0)
+            {
+                if (data.TotalCount % paginationDto.PageSize.Value == 0)
+                {
+                    data.PageCount = data.TotalCount / paginationDto.PageSize.Value;
+                }
+                else
+                {
+                    data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
+                }
+            }
             return data;
         }
         public async Task<Guid> SaveUserRegister(SaveUserRegisterDto request)

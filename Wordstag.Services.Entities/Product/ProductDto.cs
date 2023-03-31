@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wordstag.Domain.Entities.Product;
+using Wordstag.Services.Entities.Common;
 
 namespace Wordstag.Services.Entities.Product
 {
@@ -18,7 +19,7 @@ namespace Wordstag.Services.Entities.Product
         public Guid CreatedBy { get; set; }
 
     }
-    public class GetProductDto
+    public class GetProductDto : PaginationDto
     {
         public Guid ProductId { get; set; }
         public string? ProductName { get; set; }

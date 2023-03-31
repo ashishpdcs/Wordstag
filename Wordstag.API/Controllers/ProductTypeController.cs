@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Wordstag.API.Request.Product;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Interfaces;
 using Wordstag.Services.Services;
@@ -27,9 +28,9 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllProductType")]
-        public async Task<Dictionary<string, object>> GetAllProductType()
+        public async Task<Dictionary<string, object>> GetAllProductType(PaginationDto paginationDto)
         {
-            var result = await _productTypeService.GetAllProductType();
+            var result = await _productTypeService.GetAllProductType(paginationDto);
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
 

@@ -1,4 +1,5 @@
-﻿using Wordstag.Services.Entities.Product;
+﻿using Wordstag.Services.Entities.Common;
+using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.Upload;
 using Wordstag.Services.Entities.User;
 
@@ -16,7 +17,7 @@ namespace Wordstag.Services.Entities.UserSample
         public Guid CreatedBy { get; set; }
 
     }
-    public class GetUserSampleDto
+    public class GetUserSampleDto : PaginationDto
     {
         public Guid? Id { get; set; }
         public Guid? LanguageId { get; set; }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Wordstag.API.Request.Upload;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Upload;
 using Wordstag.Services.Interfaces;
 using Wordstag.Utility;
@@ -26,9 +27,9 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllUpload")]
-        public async Task<Dictionary<string, object>> GetAllUpload()
+        public async Task<Dictionary<string, object>> GetAllUpload(PaginationDto paginationDto)
         {
-            var result = await _UploadService.GetAllUpload();
+            var result = await _UploadService.GetAllUpload(paginationDto);
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
 

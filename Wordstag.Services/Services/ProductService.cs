@@ -3,12 +3,17 @@ using Microsoft.EntityFrameworkCore;
 using NPOI.OpenXmlFormats.Wordprocessing;
 using NPOI.SS.Formula.Functions;
 using SixLabors.Fonts.Tables.AdvancedTypographic;
+using System.Linq;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Product;
+using Wordstag.Services.Entities;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.User;
+using Wordstag.Services.Infrastructure;
 using Wordstag.Services.Interfaces;
+using Wordstag.Utility;
 
 namespace Wordstag.Services.Services
 {
@@ -64,9 +69,9 @@ namespace Wordstag.Services.Services
                         }).ToList();
             return data;
         }
-        public async Task<List<GetProductDto>> GetAllProduct()
+        public async Task<GenericList<GetProductDto>> GetAllProduct(PaginationDto paginationDto)
         {
-            var data = (from ProductTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
+            var dataQuery = (from ProductTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
                         where ProductTB.IsDeleted != true
                         select new GetProductDto
                         {
@@ -94,7 +99,37 @@ namespace Wordstag.Services.Services
                                                 UpdatedBy = ProducttypeTB.UpdatedBy,
                                                 UpdatedOn = ProducttypeTB.UpdatedOn,
                                             }).ToList(),
-                        }).ToList();
+                        });
+            if (!string.IsNullOrEmpty(paginationDto.OrderBy))
+            {
+                dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
+            }
+            if (!string.IsNullOrEmpty(paginationDto.GlobalSearch))
+            {
+                dataQuery = dataQuery.Where(x => x.ProductName.Contains(paginationDto.GlobalSearch)
+                || (x.ProductName != null && x.ProductName.Contains(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.CreatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.UpdatedOn != null && x.UpdatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                );
+            }
+
+            // Before calculate count if required any filter then apply that first then applied pagination
+            var dataCount = dataQuery.Count();
+            var data = new GenericList<GetProductDto>();
+            data.List = paginationDto.PageIndex == 0 ? dataQuery.ToList() : dataQuery.Skip(((paginationDto.PageIndex.Value - 1) * paginationDto.PageSize.Value)).Take(paginationDto.PageSize.Value).ToList();
+            data.TotalCount = dataCount;
+            data.PageCount = dataCount;
+            if (paginationDto.PageSize != null && paginationDto.PageSize != 0)
+            {
+                if (data.TotalCount % paginationDto.PageSize.Value == 0)
+                {
+                    data.PageCount = data.TotalCount / paginationDto.PageSize.Value;
+                }
+                else
+                {
+                    data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
+                }
+            }
             //var data = readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable().Include(P => P.productTypes).ToList();
             //var productmodel = data.Select(P => new GetProductDto
             //{

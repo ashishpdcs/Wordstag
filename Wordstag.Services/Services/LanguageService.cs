@@ -2,8 +2,12 @@
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Product;
+using Wordstag.Services.Entities;
+using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
+using Wordstag.Services.Infrastructure;
 using Wordstag.Services.Interfaces;
+using Wordstag.Utility;
 
 namespace Wordstag.Services.Services
 {
@@ -42,9 +46,9 @@ namespace Wordstag.Services.Services
                         }).ToList();
             return data;
         }
-        public async Task<List<GetLanguageDto>> GetAllLanguage()
+        public async Task<GenericList<GetLanguageDto>> GetAllLanguage(PaginationDto paginationDto)
         {
-            var data = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+            var dataQuery = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
                         select new GetLanguageDto
                         {
                             LanguageId = LanguageTB.LanguageId,
@@ -54,7 +58,38 @@ namespace Wordstag.Services.Services
                             CreatedOn = LanguageTB.CreatedOn,
                             UpdatedBy = LanguageTB.UpdatedBy,
                             UpdatedOn = LanguageTB.UpdatedOn,
-                        }).ToList();
+                        });
+
+            if (!string.IsNullOrEmpty(paginationDto.OrderBy))
+            {
+                dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
+            }
+            if (!string.IsNullOrEmpty(paginationDto.GlobalSearch))
+            {
+                dataQuery = dataQuery.Where(x => x.LanguageName.Contains(paginationDto.GlobalSearch)
+                || (x.LanguageName != null && x.LanguageName.Contains(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.CreatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.UpdatedOn != null && x.UpdatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+                );
+            }
+
+            // Before calculate count if required any filter then apply that first then applied pagination
+            var dataCount = dataQuery.Count();
+            var data = new GenericList<GetLanguageDto>();
+            data.List = paginationDto.PageIndex == 0 ? dataQuery.ToList() : dataQuery.Skip(((paginationDto.PageIndex.Value - 1) * paginationDto.PageSize.Value)).Take(paginationDto.PageSize.Value).ToList();
+            data.TotalCount = dataCount;
+            data.PageCount = dataCount;
+            if (paginationDto.PageSize != null && paginationDto.PageSize != 0)
+            {
+                if (data.TotalCount % paginationDto.PageSize.Value == 0)
+                {
+                    data.PageCount = data.TotalCount / paginationDto.PageSize.Value;
+                }
+                else
+                {
+                    data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
+                }
+            }
             return data;
         }
         public async Task<Guid> SaveLanguage(SaveLanguageDto request)
