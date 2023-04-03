@@ -29,7 +29,7 @@ namespace Wordstag.Domain.Entities.User
         public DateTime? UpdatedOn { get; set; }
         public bool? IsDeleted { get; set; }
         public string? UserType { get; set; }
-        public string? Isverified { get; set; }
+        public bool? Isverified { get; set; }
 
     }
 }

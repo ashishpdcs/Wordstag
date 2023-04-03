@@ -19,7 +19,7 @@
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public string? UserType { get; set; }
-        public string? Isverified { get; set; }
+        public bool? Isverified { get; set; }
     }
     public class GetUserRegisterRequest
     {
@@ -43,7 +43,7 @@
         public int? CountryId { get; set; }
         public int? Zipcode { get; set; }
         public string? UserType { get; set; }
-        public string? Isverified { get; set; }
+        public bool? Isverified { get; set; }
 
     }
     public class UpdateUserRegisterRequest
@@ -65,7 +65,7 @@
         public int? Zipcode { get; set; }
         public bool IsDeleted { get; set; }
         public string? UserType { get; set; }
-        public string? Isverified { get; set; }
+        public bool? Isverified { get; set; }
 
     }
     public class DeleteUserRegisterRequest

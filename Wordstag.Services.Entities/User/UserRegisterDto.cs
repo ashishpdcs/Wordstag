@@ -21,7 +21,7 @@ namespace Wordstag.Services.Entities.User
         public DateTime CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public bool IsDeleted { get; set; }
-        public string? Isverified { get; set; }
+        public bool? Isverified { get; set; }
     }
 
     public class GetUserRegisterDto
@@ -45,7 +45,7 @@ namespace Wordstag.Services.Entities.User
         public DateTime? UpdatedOn { get; set; }
         public bool IsDeleted { get; set; }
         public string? UserType { get; set; }
-        public string? Isverified { get; set; }
+        public bool? Isverified { get; set; }
 
     }
     public class SaveUserRegisterDto
@@ -67,7 +67,7 @@ namespace Wordstag.Services.Entities.User
         public DateTime CreatedOn { get; set; }
         public bool IsDeleted { get; set; }
         public string? UserType { get; set; }
-        public string? Isverified { get; set; }
+        public bool? Isverified { get; set; }
 
     }
     public class UpdateUserRegisterDto
