@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Product;
@@ -121,6 +122,22 @@ namespace Wordstag.Services.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<List<GetLanguageDto>> GetAllLanguageName()
+        {
+            var data = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                        select new GetLanguageDto
+                        {
+                            LanguageId = LanguageTB.LanguageId,
+                            LanguageName = LanguageTB.LanguageName,
+                            LanguageCode = LanguageTB.LanguageCode,
+                            CreatedBy = LanguageTB.CreatedBy,
+                            CreatedOn = LanguageTB.CreatedOn,
+                            UpdatedBy = LanguageTB.UpdatedBy,
+                            UpdatedOn = LanguageTB.UpdatedOn,
+                        }).ToList();
+            return data;
         }
 
         //public async Task<bool> DeleteLanguage(DeleteLanguageDto request)

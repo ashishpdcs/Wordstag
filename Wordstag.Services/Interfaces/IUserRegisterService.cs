@@ -9,7 +9,7 @@ namespace Wordstag.Services.Interfaces
         Task<UserRegisterDto> UserRegisterAsync(UserRegisterDto request, string ipAddress);
         Task<List<GetUserRegisterDto>> GetUserRegister(GetUserRegisterDto request);
         Task<GenericList<GetUserRegisterDto>> GetAllUserRegister(PaginationDto paginationDto);
-        Task<Guid> SaveUserRegister(SaveUserRegisterDto request);   
+        Task<List<GetUserRegisterDto>> SaveUserRegister(SaveUserRegisterDto request);   
         Task<bool> UpdateUserRegister(UpdateUserRegisterDto request);
         Task<bool> DeleteUserRegister(DeleteUserRegisterDto request);
 

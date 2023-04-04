@@ -115,7 +115,7 @@ namespace Wordstag.Services.Services
             }
             return data;
         }
-        public async Task<Guid> SaveUserRegister(SaveUserRegisterDto request)
+        public async Task<List<GetUserRegisterDto>> SaveUserRegister(SaveUserRegisterDto request)
         {
             //Save Data in UserRegister Table.
             var hashPassword = GenericMethods.GetHash(request.Password);
@@ -142,7 +142,22 @@ namespace Wordstag.Services.Services
             await _readWriteUnitOfWork.UserRegisterRepository.AddAsync(saveUserRegister);
             await _readWriteUnitOfWork.CommitAsync();
 
-            return saveUserRegister.UserId;
+            var data = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
+                        where userRegisterTB.UserId == saveUserRegister.UserId && userRegisterTB.IsDeleted == false
+                        select new GetUserRegisterDto
+                        {
+                            UserId = userRegisterTB.UserId,
+                            FirstName = userRegisterTB.FirstName,
+                            LastName = userRegisterTB.LastName,
+                            Password = userRegisterTB.Password,
+                            EmailAddress = userRegisterTB.EmailAddress,
+                            MobileNo = userRegisterTB.MobileNo,
+                            Gender = userRegisterTB.Gender,
+                            UserToken = userRegisterTB.UserToken,
+                            UserType = userRegisterTB.UserType,
+                            Isverified = userRegisterTB.Isverified,
+                        }).ToList();
+            return data;
         }
 
         public async Task<bool> UpdateUserRegister(UpdateUserRegisterDto request)

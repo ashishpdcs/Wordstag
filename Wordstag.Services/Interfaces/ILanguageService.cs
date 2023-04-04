@@ -8,6 +8,7 @@ namespace Wordstag.Services.Interfaces
     {
         Task<List<GetLanguageDto>> GetLanguage(GetLanguageDto request);
         Task<GenericList<GetLanguageDto>> GetAllLanguage(PaginationDto paginationDto);
+        Task<List<GetLanguageDto>> GetAllLanguageName();
         Task<Guid> SaveLanguage(SaveLanguageDto request);   
         Task<bool> UpdateLanguage(UpdateLanguageDto request);
       //  Task<bool> DeleteLanguage(DeleteLanguageDto request);
