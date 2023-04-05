@@ -7,7 +7,8 @@ namespace Wordstag.Services.Interfaces
     public interface IProductService
     {
         Task<List<GetProductDto>> GetProduct(GetProductDto request);
-        Task<GenericList<GetProductDto>> GetAllProduct(PaginationDto paginationDto);
+        Task<List<GetProductDto>> GetAllProduct();
+        Task<GenericList<GetProductDto>> GetAllProductWithPagination(PaginationDto paginationDto);
         Task<Guid> SaveProduct(SaveProductDto request);   
         Task<bool> UpdateProduct(UpdateProductDto request);
         Task<bool> DeleteProduct(DeleteProductDto request);

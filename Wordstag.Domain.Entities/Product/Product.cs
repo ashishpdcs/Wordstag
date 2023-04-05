@@ -20,5 +20,6 @@ namespace Wordstag.Domain.Entities.Product
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public Guid PlanId { get; set; }
     }
 }

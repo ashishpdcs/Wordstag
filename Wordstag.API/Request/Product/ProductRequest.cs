@@ -24,6 +24,7 @@
         public string? FromLanguage { get; set; }
         public string? ToLanguage { get; set; }
         public Guid CreatedBy { get; set; }
+        public Guid PlanId { get; set; }
     }
     public class UpdateProductRequest
     {

@@ -27,12 +27,17 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllProduct")]
-        public async Task<Dictionary<string, object>> GetAllProduct(PaginationDto paginationDto)
+        public async Task<Dictionary<string, object>> GetAllProduct()
         {
-            var result = await _productService.GetAllProduct(paginationDto);
+            var result = await _productService.GetAllProduct();
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
-
+        [HttpPost("GetAllProductWithPagination")]
+        public async Task<Dictionary<string, object>> GetAllProductWithPagination(PaginationDto paginationDto)
+        {
+            var result = await _productService.GetAllProductWithPagination(paginationDto);
+            return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
+        }
         [HttpPost("SaveProduct")]
         public async Task<Dictionary<string, object>> SaveProduct([FromBody] SaveProductRequest request)
         {

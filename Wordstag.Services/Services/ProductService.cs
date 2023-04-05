@@ -54,6 +54,14 @@ namespace Wordstag.Services.Services
                             UpdatedBy = ProductTB.UpdatedBy,
                             UpdatedOn = ProductTB.UpdatedOn,
                             IsDeleted = ProductTB.IsDeleted,
+                            PlanId = ProductTB.PlanId,
+                            planTypes = (from PlantypeTB in _readOnlyUnitOfWork.PlanRepository.GetAllAsQuerable()
+                                         where PlantypeTB.Id == ProductTB.PlanId
+                                         select new GetPlanDto
+                                         {
+                                             Id = PlantypeTB.Id,
+                                             PlanType = PlantypeTB.PlanType,
+                                         }).ToList(),
                             productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
                                             where ProducttypeTB.TypeId == ProductTB.ProductTypeId && ProducttypeTB.IsDeleted != true
                                             select new GetProductTypeDto
@@ -69,7 +77,49 @@ namespace Wordstag.Services.Services
                         }).ToList();
             return data;
         }
-        public async Task<GenericList<GetProductDto>> GetAllProduct(PaginationDto paginationDto)
+        public async Task<List<GetProductDto>> GetAllProduct()
+        {
+            var data = (from ProductTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
+                        where ProductTB.IsDeleted != true
+                        select new GetProductDto
+                        {
+                            ProductId = ProductTB.ProductId,
+                            ProductName = ProductTB.ProductName,
+                            Description = ProductTB.Description,
+                            Price = ProductTB.Price,
+                            ProductTypeId = ProductTB.ProductTypeId,
+                            FromLanguage = ProductTB.FromLanguage,
+                            ToLanguage = ProductTB.ToLanguage,
+                            CreatedBy = ProductTB.CreatedBy,
+                            CreatedOn = ProductTB.CreatedOn,
+                            UpdatedBy = ProductTB.UpdatedBy,
+                            UpdatedOn = ProductTB.UpdatedOn,
+                            IsDeleted = ProductTB.IsDeleted,
+                            PlanId = ProductTB.PlanId,
+                            planTypes = (from PlantypeTB in _readOnlyUnitOfWork.PlanRepository.GetAllAsQuerable()
+                                         where PlantypeTB.Id == ProductTB.PlanId
+                                         select new GetPlanDto
+                                         {
+                                             Id = PlantypeTB.Id,
+                                             PlanType = PlantypeTB.PlanType,
+                                         }).ToList(),
+                            productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
+                                            where ProducttypeTB.TypeId == ProductTB.ProductTypeId && ProducttypeTB.IsDeleted != true
+                                            select new GetProductTypeDto
+                                            {
+                                                TypeId = ProducttypeTB.TypeId,
+                                                ProductTypeName = ProducttypeTB.ProductTypeName,
+                                                ProductTypeDescription = ProducttypeTB.ProductTypeDescription,
+                                                CreatedBy = ProducttypeTB.CreatedBy,
+                                                CreatedOn = ProducttypeTB.CreatedOn,
+                                                UpdatedBy = ProducttypeTB.UpdatedBy,
+                                                UpdatedOn = ProducttypeTB.UpdatedOn,
+                                            }).ToList(),
+                        }).ToList();
+
+            return data;
+        }
+        public async Task<GenericList<GetProductDto>> GetAllProductWithPagination(PaginationDto paginationDto)
         {
             var dataQuery = (from ProductTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
                              where ProductTB.IsDeleted != true
@@ -87,7 +137,9 @@ namespace Wordstag.Services.Services
                                  UpdatedBy = ProductTB.UpdatedBy,
                                  UpdatedOn = ProductTB.UpdatedOn,
                                  IsDeleted = ProductTB.IsDeleted,
+                                 PlanId = ProductTB.PlanId,
                                  planTypes = (from PlantypeTB in _readOnlyUnitOfWork.PlanRepository.GetAllAsQuerable()
+                                              where PlantypeTB.Id == ProductTB.PlanId
                                               select new GetPlanDto
                                               {
                                                   Id = PlantypeTB.Id,
@@ -136,32 +188,6 @@ namespace Wordstag.Services.Services
                     data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
                 }
             }
-            //var data = readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable().Include(P => P.productTypes).ToList();
-            //var productmodel = data.Select(P => new GetProductDto
-            //{
-            //    Product_Id = P.Product_Id,
-            //    Product_Name = P.Product_Name,
-            //    Description = P.Description,
-            //    Price = P.Price,
-            //    Product_TypeID = P.Product_TypeID,
-            //    From_Language = P.From_Language,
-            //    To_Language = P.To_Language,
-            //    CreatedBy = P.CreatedBy,
-            //    CreatedOn = P.CreatedOn,
-            //    UpdatedBy = P.UpdatedBy,
-            //    UpdatedOn = P.UpdatedOn,
-            //    IsDeleted = P.IsDeleted,
-            //    productTypes = P.productTypes.Select(PT => new GetProductTypeDto
-            //    {
-            //        TypeId = PT.TypeId,
-            //        ProductType_Name = PT.ProductType_Name,
-            //        ProductType_Description = PT.ProductType_Description,
-            //        CreatedBy = PT.CreatedBy,
-            //        CreatedOn = PT.CreatedOn,
-            //        UpdatedBy = PT.UpdatedBy,
-            //        UpdatedOn = PT.UpdatedOn,
-            //    }).ToList()
-            //}).ToList();
             return data;
         }
         public async Task<Guid> SaveProduct(SaveProductDto request)
@@ -178,6 +204,7 @@ namespace Wordstag.Services.Services
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
+                PlanId = request.PlanId,
             };
             await _readWriteUnitOfWork.ProductRepository.AddAsync(saveProduct);
             await _readWriteUnitOfWork.CommitAsync();

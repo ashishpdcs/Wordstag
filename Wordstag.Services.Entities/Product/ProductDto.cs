@@ -33,6 +33,7 @@ namespace Wordstag.Services.Entities.Product
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool? IsDeleted { get; set; }
+        public Guid PlanId { get; set; }
         public List<GetProductTypeDto> productTypes { get; set; }
         public List<GetPlanDto> planTypes { get; set; }
 
@@ -48,6 +49,7 @@ namespace Wordstag.Services.Entities.Product
         public DateTime? CreatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public Guid PlanId { get; set; }
     }
     public class UpdateProductDto
     {
