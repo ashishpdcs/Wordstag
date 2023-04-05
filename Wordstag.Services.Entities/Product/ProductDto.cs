@@ -34,6 +34,7 @@ namespace Wordstag.Services.Entities.Product
         public Guid? UpdatedBy { get; set; }
         public bool? IsDeleted { get; set; }
         public List<GetProductTypeDto> productTypes { get; set; }
+        public List<GetPlanDto> planTypes { get; set; }
 
     }
     public class SaveProductDto

@@ -18,6 +18,7 @@ namespace Wordstag.Data.Infrastructure
         IOrderRepository<TContext> OrderRepository { get; }
         IUploadRepository<TContext> UploadRepository { get; }
         IUserSampleRepository<TContext> UserSampleRepository { get; }
+        IPlanRepository<TContext> PlanRepository { get; }
         Task<int> CommitAsync();
 
     }
@@ -37,6 +38,7 @@ namespace Wordstag.Data.Infrastructure
         public IOrderRepository<TContext> OrderRepository { get; }
         public IUploadRepository<TContext> UploadRepository { get; }
         public IUserSampleRepository<TContext> UserSampleRepository { get; }
+        public IPlanRepository<TContext> PlanRepository { get; }
         public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
             IUserRegisterRepository<TContext> _userRegisterRepository,
             IRefreshTokenRepository<TContext> refreshTokenRepository,
@@ -49,7 +51,8 @@ namespace Wordstag.Data.Infrastructure
             IDocumentRepository<TContext> documentRepository, 
             IOrderRepository<TContext> orderRepository,
             IUploadRepository<TContext> uploadRepository,
-            IUserSampleRepository<TContext> userSampleRepository)
+            IUserSampleRepository<TContext> userSampleRepository,
+            IPlanRepository<TContext> planRepository)
         {
             this.Context = context;
             this.AccountsRepository = accountsRepository;
@@ -65,6 +68,7 @@ namespace Wordstag.Data.Infrastructure
             this.OrderRepository = orderRepository;
             this.UploadRepository = uploadRepository;
             this.UserSampleRepository = userSampleRepository;
+            this.PlanRepository = planRepository;
         }
         public async Task<int> CommitAsync()
         {

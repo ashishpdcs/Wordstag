@@ -72,34 +72,40 @@ namespace Wordstag.Services.Services
         public async Task<GenericList<GetProductDto>> GetAllProduct(PaginationDto paginationDto)
         {
             var dataQuery = (from ProductTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
-                        where ProductTB.IsDeleted != true
-                        select new GetProductDto
-                        {
-                            ProductId = ProductTB.ProductId,
-                            ProductName = ProductTB.ProductName,
-                            Description = ProductTB.Description,
-                            Price = ProductTB.Price,
-                            ProductTypeId = ProductTB.ProductTypeId,
-                            FromLanguage = ProductTB.FromLanguage,
-                            ToLanguage = ProductTB.ToLanguage,
-                            CreatedBy = ProductTB.CreatedBy,
-                            CreatedOn = ProductTB.CreatedOn,
-                            UpdatedBy = ProductTB.UpdatedBy,
-                            UpdatedOn = ProductTB.UpdatedOn,
-                            IsDeleted = ProductTB.IsDeleted,
-                            productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
-                                            where ProducttypeTB.TypeId == ProductTB.ProductTypeId && ProducttypeTB.IsDeleted != true
-                                            select new GetProductTypeDto
-                                            {
-                                                TypeId = ProducttypeTB.TypeId,
-                                                ProductTypeName = ProducttypeTB.ProductTypeName,
-                                                ProductTypeDescription = ProducttypeTB.ProductTypeDescription,
-                                                CreatedBy = ProducttypeTB.CreatedBy,
-                                                CreatedOn = ProducttypeTB.CreatedOn,
-                                                UpdatedBy = ProducttypeTB.UpdatedBy,
-                                                UpdatedOn = ProducttypeTB.UpdatedOn,
-                                            }).ToList(),
-                        });
+                             where ProductTB.IsDeleted != true
+                             select new GetProductDto
+                             {
+                                 ProductId = ProductTB.ProductId,
+                                 ProductName = ProductTB.ProductName,
+                                 Description = ProductTB.Description,
+                                 Price = ProductTB.Price,
+                                 ProductTypeId = ProductTB.ProductTypeId,
+                                 FromLanguage = ProductTB.FromLanguage,
+                                 ToLanguage = ProductTB.ToLanguage,
+                                 CreatedBy = ProductTB.CreatedBy,
+                                 CreatedOn = ProductTB.CreatedOn,
+                                 UpdatedBy = ProductTB.UpdatedBy,
+                                 UpdatedOn = ProductTB.UpdatedOn,
+                                 IsDeleted = ProductTB.IsDeleted,
+                                 planTypes = (from PlantypeTB in _readOnlyUnitOfWork.PlanRepository.GetAllAsQuerable()
+                                              select new GetPlanDto
+                                              {
+                                                  Id = PlantypeTB.Id,
+                                                  PlanType = PlantypeTB.PlanType,
+                                              }).ToList(),
+                                 productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
+                                                 where ProducttypeTB.TypeId == ProductTB.ProductTypeId && ProducttypeTB.IsDeleted != true
+                                                 select new GetProductTypeDto
+                                                 {
+                                                     TypeId = ProducttypeTB.TypeId,
+                                                     ProductTypeName = ProducttypeTB.ProductTypeName,
+                                                     ProductTypeDescription = ProducttypeTB.ProductTypeDescription,
+                                                     CreatedBy = ProducttypeTB.CreatedBy,
+                                                     CreatedOn = ProducttypeTB.CreatedOn,
+                                                     UpdatedBy = ProducttypeTB.UpdatedBy,
+                                                     UpdatedOn = ProducttypeTB.UpdatedOn,
+                                                 }).ToList(),
+                             });
             if (!string.IsNullOrEmpty(paginationDto.OrderBy))
             {
                 dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
