@@ -1,6 +1,4 @@
-﻿
-using Wordstag.Domain.Entities.User;
-using Wordstag.Services.Entities.Common;
+﻿using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
 using Wordstag.Services.Entities.User;
 
