@@ -55,6 +55,20 @@ namespace Wordstag.Services.Services
                             UpdatedOn = ProductTB.UpdatedOn,
                             IsDeleted = ProductTB.IsDeleted,
                             PlanId = ProductTB.PlanId,
+                            Tolanguages = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                                           where LanguageTB.LanguageId == ProductTB.ToLanguage
+                                           select new GetLanguageDto
+                                           {
+                                               LanguageId = LanguageTB.LanguageId,
+                                               LanguageName = LanguageTB.LanguageName,
+                                           }).ToList(),
+                            Fromlanguages = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                                           where LanguageTB.LanguageId == ProductTB.FromLanguage
+                                           select new GetLanguageDto
+                                           {
+                                               LanguageId = LanguageTB.LanguageId,
+                                               LanguageName = LanguageTB.LanguageName,
+                                           }).ToList(),
                             planTypes = (from PlantypeTB in _readOnlyUnitOfWork.PlanRepository.GetAllAsQuerable()
                                          where PlantypeTB.Id == ProductTB.PlanId
                                          select new GetPlanDto
@@ -103,6 +117,20 @@ namespace Wordstag.Services.Services
                                              Id = PlantypeTB.Id,
                                              PlanType = PlantypeTB.PlanType,
                                          }).ToList(),
+                            Tolanguages = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                                           where LanguageTB.LanguageId == ProductTB.ToLanguage
+                                           select new GetLanguageDto
+                                           {
+                                               LanguageId = LanguageTB.LanguageId,
+                                               LanguageName = LanguageTB.LanguageName,
+                                           }).ToList(),
+                            Fromlanguages = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                                             where LanguageTB.LanguageId == ProductTB.FromLanguage
+                                             select new GetLanguageDto
+                                             {
+                                                 LanguageId = LanguageTB.LanguageId,
+                                                 LanguageName = LanguageTB.LanguageName,
+                                             }).ToList(),
                             productTypes = (from ProducttypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
                                             where ProducttypeTB.TypeId == ProductTB.ProductTypeId && ProducttypeTB.IsDeleted != true
                                             select new GetProductTypeDto

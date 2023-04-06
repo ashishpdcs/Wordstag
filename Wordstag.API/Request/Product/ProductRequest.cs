@@ -6,8 +6,8 @@
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public Guid ProductTypeId { get; set; }
-        public string? FromLanguage { get; set; }
-        public string? ToLanguage { get; set; }
+        public Guid? FromLanguage { get; set; }
+        public Guid? ToLanguage { get; set; }
         public Guid CreatedBy { get; set; }
 
     }
@@ -21,8 +21,8 @@
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public Guid ProductTypeId { get; set; }
-        public string? FromLanguage { get; set; }
-        public string? ToLanguage { get; set; }
+        public Guid? FromLanguage { get; set; }
+        public Guid? ToLanguage { get; set; }
         public Guid CreatedBy { get; set; }
         public Guid PlanId { get; set; }
     }
@@ -33,8 +33,8 @@
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public Guid ProductTypeId { get; set; }
-        public string? FromLanguage { get; set; }
-        public string? ToLanguage { get; set; }
+        public Guid? FromLanguage { get; set; }
+        public Guid? ToLanguage { get; set; }
         public Guid UpdatedBy { get; set; }
 
     }
