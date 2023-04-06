@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Wordstag.Domain.Entities.Product;
 using Wordstag.Services.Entities.Common;
 
 namespace Wordstag.Services.Entities.Product
