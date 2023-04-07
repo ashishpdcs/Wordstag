@@ -42,4 +42,10 @@
     {
         public Guid ProductId { get; set; }
     }
+    public class GetProductFilterRequest
+    {
+        public Guid ProductTypeId { get; set; }
+        public Guid? FromLanguage { get; set; }
+        public Guid? ToLanguage { get; set; }
+    }
 }

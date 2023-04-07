@@ -48,9 +48,9 @@ namespace Wordstag.Services.Services
                         }).ToList();
             return data;
         }
-        public async Task<GenericList<GetProductTypeDto>> GetAllProductType(PaginationDto paginationDto)
+        public async Task<List<GetProductTypeDto>> GetAllProductType()
         {
-            var dataQuery = (from ProductTypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
+            var data = (from ProductTypeTB in _readOnlyUnitOfWork.ProductTypeRepository.GetAllAsQuerable()
                         where ProductTypeTB.IsDeleted != true
                         select new GetProductTypeDto
                         {
@@ -61,37 +61,37 @@ namespace Wordstag.Services.Services
                             CreatedOn = ProductTypeTB.CreatedOn,
                             UpdatedBy = ProductTypeTB.UpdatedBy,
                             UpdatedOn = ProductTypeTB.UpdatedOn,
-                        });
-            if (!string.IsNullOrEmpty(paginationDto.OrderBy))
-            {
-                dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
-            }
-            if (!string.IsNullOrEmpty(paginationDto.GlobalSearch))
-            {
-                dataQuery = dataQuery.Where(x => x.ProductTypeName.Contains(paginationDto.GlobalSearch)
-                || (x.ProductTypeName != null && x.ProductTypeName.Contains(paginationDto.GlobalSearch))
-                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.CreatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
-                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.UpdatedOn != null && x.UpdatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
-                );
-            }
+                        }).ToList();
+            //if (!string.IsNullOrEmpty(paginationDto.OrderBy))
+            //{
+            //    dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
+            //}
+            //if (!string.IsNullOrEmpty(paginationDto.GlobalSearch))
+            //{
+            //    dataQuery = dataQuery.Where(x => x.ProductTypeName.Contains(paginationDto.GlobalSearch)
+            //    || (x.ProductTypeName != null && x.ProductTypeName.Contains(paginationDto.GlobalSearch))
+            //    || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.CreatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+            //    || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.UpdatedOn != null && x.UpdatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
+            //    );
+            //}
 
-            // Before calculate count if required any filter then apply that first then applied pagination
-            var dataCount = dataQuery.Count();
-            var data = new GenericList<GetProductTypeDto>();
-            data.List = paginationDto.PageIndex == 0 ? dataQuery.ToList() : dataQuery.Skip(((paginationDto.PageIndex.Value - 1) * paginationDto.PageSize.Value)).Take(paginationDto.PageSize.Value).ToList();
-            data.TotalCount = dataCount;
-            data.PageCount = dataCount;
-            if (paginationDto.PageSize != null && paginationDto.PageSize != 0)
-            {
-                if (data.TotalCount % paginationDto.PageSize.Value == 0)
-                {
-                    data.PageCount = data.TotalCount / paginationDto.PageSize.Value;
-                }
-                else
-                {
-                    data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
-                }
-            }
+            //// Before calculate count if required any filter then apply that first then applied pagination
+            //var dataCount = dataQuery.Count();
+            //var data = new GenericList<GetProductTypeDto>();
+            //data.List = paginationDto.PageIndex == 0 ? dataQuery.ToList() : dataQuery.Skip(((paginationDto.PageIndex.Value - 1) * paginationDto.PageSize.Value)).Take(paginationDto.PageSize.Value).ToList();
+            //data.TotalCount = dataCount;
+            //data.PageCount = dataCount;
+            //if (paginationDto.PageSize != null && paginationDto.PageSize != 0)
+            //{
+            //    if (data.TotalCount % paginationDto.PageSize.Value == 0)
+            //    {
+            //        data.PageCount = data.TotalCount / paginationDto.PageSize.Value;
+            //    }
+            //    else
+            //    {
+            //        data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
+            //    }
+            //}
             return data;
         }
         public async Task<Guid> SaveProductType(SaveProductTypeDto request)

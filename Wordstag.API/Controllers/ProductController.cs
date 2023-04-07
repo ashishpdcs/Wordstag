@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Wordstag.API.Request.Product;
 using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
@@ -27,9 +28,10 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllProduct")]
-        public async Task<Dictionary<string, object>> GetAllProduct()
+        public async Task<Dictionary<string, object>> GetAllProduct([FromBody] GetProductFilterRequest request)
         {
-            var result = await _productService.GetAllProduct();
+            var userdto = _mapper.Map<GetProductFilterRequest, GetProductDto>(request);
+            var result = await _productService.GetAllProduct(userdto);
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllProductWithPagination")]

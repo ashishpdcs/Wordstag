@@ -28,9 +28,9 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllProductType")]
-        public async Task<Dictionary<string, object>> GetAllProductType(PaginationDto paginationDto)
+        public async Task<Dictionary<string, object>> GetAllProductType()
         {
-            var result = await _productTypeService.GetAllProductType(paginationDto);
+            var result = await _productTypeService.GetAllProductType();
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
 

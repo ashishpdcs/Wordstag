@@ -91,10 +91,10 @@ namespace Wordstag.Services.Services
                         }).ToList();
             return data;
         }
-        public async Task<List<GetProductDto>> GetAllProduct()
+        public async Task<List<GetProductDto>> GetAllProduct(GetProductDto request)
         {
             var data = (from ProductTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
-                        where ProductTB.IsDeleted != true
+                        where ProductTB.IsDeleted != true && ProductTB.ProductTypeId == request.ProductTypeId && ProductTB.FromLanguage == request.FromLanguage && ProductTB.ToLanguage == request.ToLanguage
                         select new GetProductDto
                         {
                             ProductId = ProductTB.ProductId,

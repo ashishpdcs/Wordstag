@@ -22,6 +22,7 @@ namespace Wordstag.API.Infrastructure.Automapper
             CreateMap<Product, DeleteProductDto>().ReverseMap();
 
             CreateMap<Plan, GetPlanDto>();
+            CreateMap<GetProductFilterRequest, GetProductDto>();
         }
     }
 }

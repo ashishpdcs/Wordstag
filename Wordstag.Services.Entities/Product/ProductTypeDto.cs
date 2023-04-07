@@ -11,7 +11,7 @@ namespace Wordstag.Services.Entities.Product
         public Guid CreatedBy { get; set; }
 
     }
-    public class GetProductTypeDto : PaginationDto
+    public class GetProductTypeDto 
     {
         public Guid? TypeId { get; set; }
         public string? ProductTypeName { get; set; }
