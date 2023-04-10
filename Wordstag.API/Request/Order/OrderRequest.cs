@@ -11,7 +11,7 @@
         public int Items { get; set; }
         public int NoofWords { get; set; }
         public Guid CreatedBy { get; set; }
-
+        public string? OrderDescription { get; set; }
     }
     public class GetOrderRequest
     {
@@ -28,6 +28,7 @@
         public int Items { get; set; }
         public int NoofWords { get; set; }
         public Guid CreatedBy { get; set; }
+        public string? OrderDescription { get; set; }
     }
     public class UpdateOrderRequest
     {
@@ -41,7 +42,7 @@
         public int Items { get; set; }
         public int NoofWords { get; set; }
         public Guid UpdatedBy { get; set; }
-
+        public string? OrderDescription { get; set; }
     }
     public class DeleteOrderRequest
     {

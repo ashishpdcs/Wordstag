@@ -22,5 +22,6 @@ namespace Wordstag.Domain.Entities.Order
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public string? OrderDescription { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace Wordstag.Services.Entities.Order
         public int Items { get; set; }
         public int NoofWords { get; set; }
         public Guid CreatedBy { get; set; }
-
+        public string? OrderDescription { get; set; }
     }
     public class GetOrderDto : PaginationDto
     {
@@ -36,7 +36,7 @@ namespace Wordstag.Services.Entities.Order
         public Guid? CreatedBy { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool? IsDeleted { get; set; }
-
+        public string? OrderDescription { get; set; }
         public List<GetProductDto> productDtos { get; set; }
         public List<GetUserRegisterDto> UserRegisterDtos { get; set; }
         public List<GetUploadDto> UploadDtos { get; set; }
@@ -56,6 +56,7 @@ namespace Wordstag.Services.Entities.Order
         public DateTime? CreatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
+        public string? OrderDescription { get; set; }
     }
     public class UpdateOrderDto
     {
@@ -71,7 +72,7 @@ namespace Wordstag.Services.Entities.Order
         public DateTime? UpdatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
-
+        public string? OrderDescription { get; set; }
     }
     public class DeleteOrderDto
     {

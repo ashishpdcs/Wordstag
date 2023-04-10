@@ -59,6 +59,7 @@ namespace Wordstag.Services.Services
                             UpdatedBy = OrderTB.UpdatedBy,
                             UpdatedOn = OrderTB.UpdatedOn,
                             IsDeleted = OrderTB.IsDeleted,
+                            OrderDescription = OrderTB.OrderDescription,
                             productDtos = (from producttbl in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
                                            where producttbl.IsDeleted != true && producttbl.ProductId == OrderTB.ProductId
                                            select new GetProductDto
@@ -121,6 +122,7 @@ namespace Wordstag.Services.Services
                             UpdatedBy = OrderTB.UpdatedBy,
                             UpdatedOn = OrderTB.UpdatedOn,
                             IsDeleted = OrderTB.IsDeleted,
+                            OrderDescription = OrderTB.OrderDescription,
                             productDtos = (from producttbl in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
                                            where producttbl.IsDeleted != true && producttbl.ProductId == OrderTB.ProductId
                                            select new GetProductDto
@@ -211,6 +213,7 @@ namespace Wordstag.Services.Services
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
+                OrderDescription = request.OrderDescription,
             };
             await _readWriteUnitOfWork.OrderRepository.AddAsync(saveOrder);
             await _readWriteUnitOfWork.CommitAsync();
@@ -233,6 +236,7 @@ namespace Wordstag.Services.Services
                 data.NoofWords = request.NoofWords;
                 data.UpdatedBy = request.UpdatedBy;
                 data.UpdatedOn = DateTime.UtcNow;
+                data.OrderDescription = request.OrderDescription;
                 await _readWriteUnitOfWork.CommitAsync();
                 return true;
             }
