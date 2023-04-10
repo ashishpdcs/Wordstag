@@ -9,10 +9,13 @@ namespace Wordstag.Services.Entities.Order
     public class OrderDto
     {
         public Guid? ProductId { get; set; }
-        public Guid? LanguageId { get; set; }
+        public Guid? FromLanguageId { get; set; }
+        public Guid? ToLanguageId { get; set; }
         public Guid? UserId { get; set; }
         public Guid? UploadId { get; set; }
         public Guid? SampleId { get; set; }
+        public int Items { get; set; }
+        public int NoofWords { get; set; }
         public Guid CreatedBy { get; set; }
 
     }
@@ -21,10 +24,13 @@ namespace Wordstag.Services.Entities.Order
         public Guid OrderId { get; set; }
         public string? OrderNo { get; set; }
         public Guid? ProductId { get; set; }
-        public Guid? LanguageId { get; set; }
+        public Guid? FromLanguageId { get; set; }
+        public Guid? ToLanguageId { get; set; }
         public Guid? UserId { get; set; }
         public Guid? UploadId { get; set; }
         public Guid? SampleId { get; set; }
+        public int? Items { get; set; }
+        public int? NoofWords { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
@@ -32,7 +38,6 @@ namespace Wordstag.Services.Entities.Order
         public bool? IsDeleted { get; set; }
 
         public List<GetProductDto> productDtos { get; set; }
-        public List<GetLanguageDto> LanguageDtos { get; set; }
         public List<GetUserRegisterDto> UserRegisterDtos { get; set; }
         public List<GetUploadDto> UploadDtos { get; set; }
 
@@ -41,10 +46,13 @@ namespace Wordstag.Services.Entities.Order
     {
         public string? OrderNo { get; set; }
         public Guid? ProductId { get; set; }
-        public Guid? LanguageId { get; set; }
+        public Guid? FromLanguageId { get; set; }
+        public Guid? ToLanguageId { get; set; }
         public Guid? UserId { get; set; }
         public Guid? UploadId { get; set; }
         public Guid? SampleId { get; set; }
+        public int Items { get; set; }
+        public int NoofWords { get; set; }
         public DateTime? CreatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
         public bool IsDeleted { get; set; }
@@ -53,10 +61,13 @@ namespace Wordstag.Services.Entities.Order
     {
         public Guid OrderId { get; set; }
         public Guid? ProductId { get; set; }
-        public Guid? LanguageId { get; set; }
+        public Guid? FromLanguageId { get; set; }
+        public Guid? ToLanguageId { get; set; }
         public Guid? UserId { get; set; }
         public Guid? UploadId { get; set; }
         public Guid? SampleId { get; set; }
+        public int Items { get; set; }
+        public int NoofWords { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public Guid? UpdatedBy { get; set; }
         public bool IsDeleted { get; set; }
