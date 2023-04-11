@@ -106,6 +106,12 @@ namespace Wordstag.Data.Contexts
         public DbSet<UploadTbl> uploads { get; set; }
         public DbSet<UserSample> userSamples { get; set; }
         public DbSet<Plan> plans { get; set; }
+        public DbSet<ProductCertificate> productServices { get; set; }
+        public DbSet<NotarizedAndCertyIndianAddress> notarizedAndCertyIndianAddresses{ get; set; }
+        public DbSet<RequireHardCopy> requireHardCopies { get; set; }
+        public DbSet<NeedApostille> needApostilles { get; set; }
+
+
     }
 
     public interface IBaseContext

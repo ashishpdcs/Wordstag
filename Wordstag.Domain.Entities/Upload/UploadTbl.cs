@@ -12,8 +12,6 @@ namespace Wordstag.Domain.Entities.Upload
         public Guid? ProductId { get; set; }
         public Guid? LanguageId { get; set; }
         public Guid? UserId { get; set; }
-        public string? FileName { get; set; }
-        public string? FileType { get; set; }
         public string? OrignalFile { get; set; }
         public string? UpdatedFile { get; set; }
         public string? FilePath { get; set; }

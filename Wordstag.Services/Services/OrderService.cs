@@ -47,19 +47,15 @@ namespace Wordstag.Services.Services
                             OrderId = OrderTB.OrderId,
                             OrderNo = OrderTB.OrderNo,
                             ProductId = OrderTB.ProductId,
-                            FromLanguageId = OrderTB.FromLanguageId,
-                            ToLanguageId = OrderTB.ToLanguageId,
+                            LanguageId = OrderTB.LanguageId,
                             UserId = OrderTB.UserId,
                             UploadId = OrderTB.UploadId,
                             SampleId = OrderTB.SampleId,
-                            Items = OrderTB.Items,
-                            NoofWords = OrderTB.NoofWords,
                             CreatedBy = OrderTB.CreatedBy,
                             CreatedOn = OrderTB.CreatedOn,
                             UpdatedBy = OrderTB.UpdatedBy,
                             UpdatedOn = OrderTB.UpdatedOn,
                             IsDeleted = OrderTB.IsDeleted,
-                            OrderDescription = OrderTB.OrderDescription,
                             productDtos = (from producttbl in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
                                            where producttbl.IsDeleted != true && producttbl.ProductId == OrderTB.ProductId
                                            select new GetProductDto
@@ -72,6 +68,14 @@ namespace Wordstag.Services.Services
                                                FromLanguage = producttbl.FromLanguage,
                                                ToLanguage = producttbl.ToLanguage
                                            }).ToList(),
+                            LanguageDtos = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                                            where LanguageTB.LanguageId == OrderTB.LanguageId
+                                            select new GetLanguageDto
+                                            {
+                                                LanguageId = LanguageTB.LanguageId,
+                                                LanguageName = LanguageTB.LanguageName,
+                                                LanguageCode = LanguageTB.LanguageCode
+                                            }).ToList(),
                             UserRegisterDtos = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
                                                 where userRegisterTB.IsDeleted != true && userRegisterTB.UserId == OrderTB.UserId
                                                 select new GetUserRegisterDto
@@ -110,19 +114,15 @@ namespace Wordstag.Services.Services
                             OrderId = OrderTB.OrderId,
                             OrderNo = OrderTB.OrderNo,
                             ProductId = OrderTB.ProductId,
-                            FromLanguageId = OrderTB.FromLanguageId,
-                            ToLanguageId = OrderTB.ToLanguageId,
+                            LanguageId = OrderTB.LanguageId,
                             UserId = OrderTB.UserId,
                             UploadId = OrderTB.UploadId,
                             SampleId = OrderTB.SampleId,
-                            Items = OrderTB.Items,
-                            NoofWords = OrderTB.NoofWords,
                             CreatedBy = OrderTB.CreatedBy,
                             CreatedOn = OrderTB.CreatedOn,
                             UpdatedBy = OrderTB.UpdatedBy,
                             UpdatedOn = OrderTB.UpdatedOn,
                             IsDeleted = OrderTB.IsDeleted,
-                            OrderDescription = OrderTB.OrderDescription,
                             productDtos = (from producttbl in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
                                            where producttbl.IsDeleted != true && producttbl.ProductId == OrderTB.ProductId
                                            select new GetProductDto
@@ -135,6 +135,14 @@ namespace Wordstag.Services.Services
                                                FromLanguage = producttbl.FromLanguage,
                                                ToLanguage = producttbl.ToLanguage
                                            }).ToList(),
+                            LanguageDtos = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+                                            where LanguageTB.LanguageId == OrderTB.LanguageId
+                                            select new GetLanguageDto
+                                            {
+                                                LanguageId = LanguageTB.LanguageId,
+                                                LanguageName = LanguageTB.LanguageName,
+                                                LanguageCode = LanguageTB.LanguageCode
+                                            }).ToList(),
                             UserRegisterDtos = (from userRegisterTB in _readOnlyUnitOfWork.UserRegisterRepository.GetAllAsQuerable()
                                                 where userRegisterTB.IsDeleted != true && userRegisterTB.UserId == OrderTB.UserId
                                                 select new GetUserRegisterDto
@@ -203,17 +211,13 @@ namespace Wordstag.Services.Services
                 OrderId = Guid.NewGuid(),
                 OrderNo = randomNumberString,
                 ProductId = request.ProductId,
-                FromLanguageId = request.FromLanguageId,
-                ToLanguageId = request.ToLanguageId,
+                LanguageId = request.LanguageId,
                 UserId = request.UserId,
                 UploadId = request.UploadId,
                 SampleId = request.SampleId,
-                Items = request.Items,
-                NoofWords = request.NoofWords,
                 CreatedBy = request.CreatedBy,
                 CreatedOn = DateTime.UtcNow,
                 IsDeleted = false,
-                OrderDescription = request.OrderDescription,
             };
             await _readWriteUnitOfWork.OrderRepository.AddAsync(saveOrder);
             await _readWriteUnitOfWork.CommitAsync();
@@ -227,16 +231,12 @@ namespace Wordstag.Services.Services
             if (data != null)
             {
                 data.ProductId = request.ProductId;
-                data.ToLanguageId = request.ToLanguageId;
-                data.FromLanguageId = request.FromLanguageId;
+                data.LanguageId = request.LanguageId;
                 data.UserId = request.UserId;
                 data.UploadId = request.UploadId;
                 data.SampleId = request.SampleId;
-                data.Items = request.Items;
-                data.NoofWords = request.NoofWords;
                 data.UpdatedBy = request.UpdatedBy;
                 data.UpdatedOn = DateTime.UtcNow;
-                data.OrderDescription = request.OrderDescription;
                 await _readWriteUnitOfWork.CommitAsync();
                 return true;
             }

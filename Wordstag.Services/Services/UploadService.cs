@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using NPOI.HPSF;
-using System.Drawing.Imaging;
 using System.Linq;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
@@ -45,8 +43,6 @@ namespace Wordstag.Services.Services
                             ProductId = UploadTB.ProductId,
                             LanguageId = UploadTB.LanguageId,
                             UserId = UploadTB.UserId,
-                            FileName = UploadTB.FileName,
-                            FileType = UploadTB.FileType,
                             OrignalFile = UploadTB.OrignalFile,
                             UpdatedFile = UploadTB.UpdatedFile,
                             FilePath = UploadTB.FilePath,
@@ -102,8 +98,6 @@ namespace Wordstag.Services.Services
                             ProductId = UploadTB.ProductId,
                             LanguageId = UploadTB.LanguageId,
                             UserId = UploadTB.UserId,
-                            FileName = UploadTB.FileName,
-                            FileType = UploadTB.FileType,
                             OrignalFile = UploadTB.OrignalFile,
                             UpdatedFile = UploadTB.UpdatedFile,
                             FilePath = UploadTB.FilePath,
@@ -187,8 +181,6 @@ namespace Wordstag.Services.Services
                 ProductId = request.ProductId,
                 LanguageId = request.LanguageId,
                 UserId = request.UserId,
-                FileName = request.FileName,
-                FileType = request.FileType,
                 OrignalFile = request.OrignalFile,
                 FilePath = request.FilePath,
                 FileSize = request.FileSize,
@@ -210,8 +202,6 @@ namespace Wordstag.Services.Services
                 data.ProductId = request.ProductId; ;
                 data.LanguageId = request.LanguageId;
                 data.UserId = request.UserId;
-                data.FileName = request.FileName;
-                data.FileType = request.FileType;
                 data.UpdatedFile = request.UpdatedFile;
                 data.FilePath = request.FilePath;
                 data.FileSize = request.FileSize;

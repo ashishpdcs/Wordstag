@@ -19,6 +19,11 @@ namespace Wordstag.Data.Infrastructure
         IUploadRepository<TContext> UploadRepository { get; }
         IUserSampleRepository<TContext> UserSampleRepository { get; }
         IPlanRepository<TContext> PlanRepository { get; }
+        IProductCertificateRepository<TContext> productCertificateRepository { get; }
+        INotarizedAndCertyIndianAddressRepository<TContext> notarizedAndCertyIndianAddressRepository { get; }
+        INeedApostilleRepository<TContext> needApostilleRepository { get; }
+        IRequireHardCopyRepository<TContext> requireHardCopyRepository{ get; }
+
         Task<int> CommitAsync();
 
     }
@@ -39,6 +44,13 @@ namespace Wordstag.Data.Infrastructure
         public IUploadRepository<TContext> UploadRepository { get; }
         public IUserSampleRepository<TContext> UserSampleRepository { get; }
         public IPlanRepository<TContext> PlanRepository { get; }
+        public IProductCertificateRepository<TContext> productCertificateRepository{ get; }
+        public INotarizedAndCertyIndianAddressRepository<TContext> notarizedAndCertyIndianAddressRepository { get; }
+        public INeedApostilleRepository<TContext> needApostilleRepository { get; }
+        public IRequireHardCopyRepository<TContext> requireHardCopyRepository { get; }
+
+
+
         public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
             IUserRegisterRepository<TContext> _userRegisterRepository,
             IRefreshTokenRepository<TContext> refreshTokenRepository,
@@ -52,7 +64,12 @@ namespace Wordstag.Data.Infrastructure
             IOrderRepository<TContext> orderRepository,
             IUploadRepository<TContext> uploadRepository,
             IUserSampleRepository<TContext> userSampleRepository,
-            IPlanRepository<TContext> planRepository)
+            IPlanRepository<TContext> planRepository,
+            IProductCertificateRepository<TContext> productCertificateRepository,
+            INotarizedAndCertyIndianAddressRepository<TContext> notarizedAndCertyIndianAddressRepository,
+            INeedApostilleRepository<TContext> needApostilleRepository,
+            IRequireHardCopyRepository<TContext> requireHardCopyRepository
+            )
         {
             this.Context = context;
             this.AccountsRepository = accountsRepository;
@@ -69,6 +86,13 @@ namespace Wordstag.Data.Infrastructure
             this.UploadRepository = uploadRepository;
             this.UserSampleRepository = userSampleRepository;
             this.PlanRepository = planRepository;
+            this.productCertificateRepository = productCertificateRepository;
+            this.notarizedAndCertyIndianAddressRepository = notarizedAndCertyIndianAddressRepository;
+            this.needApostilleRepository = needApostilleRepository;
+            this.requireHardCopyRepository = requireHardCopyRepository;
+
+
+
         }
         public async Task<int> CommitAsync()
         {
