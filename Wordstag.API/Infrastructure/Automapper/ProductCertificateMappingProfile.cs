@@ -19,6 +19,10 @@ namespace Wordstag.API.Infrastructure.Automapper
             CreateMap<ProductCertificate, UpdateProductCertificateDto>().ReverseMap();
 
 
+            CreateMap<DeleteProductCertificateRequest, DeleteProductCertificateDto>();
+            CreateMap<ProductCertificate, DeleteProductCertificateDto>().ReverseMap();
+
+
         }
     }
 }
