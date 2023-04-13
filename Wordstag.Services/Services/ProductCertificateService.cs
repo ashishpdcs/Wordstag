@@ -43,7 +43,7 @@ namespace Wordstag.Services.Services
             {
                 ProductCertificateId = Guid.NewGuid(),
                 ProductId = request.ProductId,
-                Noofapplicants= request.Noofapplicants,
+                Noofapplicants = request.Noofapplicants,
                 Requiredservices = request.Requiredservices,
                 DocumentsApostilled = request.DocumentsApostilled,
                 CanadaImmigrationVisa = request.CanadaImmigrationVisa,
@@ -92,14 +92,47 @@ namespace Wordstag.Services.Services
                             AvailingApostilleService = PCTB.AvailingApostilleService,
                             TotalAmount = PCTB.TotalAmount,
                             CreatedOn = PCTB.CreatedOn,
-                            CreatedBy= PCTB.CreatedBy,
-                            NotarizedAndCertyIndianAddressDetails= NCTB.Details,
-                            NotarizedAndCertyIndianAddressAmount= NCTB.Amount,
-                            RequiredHardCopyDetails = RCTB.Details,
-                            RequiredHardCopyAmount= RCTB.Amount,
-                            NeedApostilleDetails= NATB.Details,
-                            NeedApostilleAmount= NATB.Amount,
+                            CreatedBy = PCTB.CreatedBy,
+                            productDetails = (from Product ProTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
+                                              where (PCTB.ProductId == ProTB.ProductId && ProTB.IsDeleted != true)
+                                              select new GetProductDto
+                                              {
+                                                  ProductId = ProTB.ProductId,
+                                                  ProductName = ProTB.ProductName,
+                                                  Description = ProTB.Description,
+                                                  Price = ProTB.Price,
+                                                  ProductTypeId = ProTB.ProductTypeId,
+                                                  FromLanguage = ProTB.FromLanguage,
+                                                  ToLanguage = ProTB.ToLanguage,
+                                                  PlanId = ProTB.PlanId,
+                                              }).ToList(),
+                            requiredHardCopyDetails = (from RequireHardCopy RCTB in _readOnlyUnitOfWork.requireHardCopyRepository.GetAllAsQuerable()
+                                                       where (PCTB.RequireHardCopyId == RCTB.Id && RCTB.IsDeleted != true)
+                                                       select new GetRequireHardCopyDto
+                                                       {
+                                                           Id = RCTB.Id,
+                                                           Details = RCTB.Details,
+                                                           Amount = RCTB.Amount,
+                                                       }).ToList(),
+                            needApostilleDetails = (from NeedApostille NATB in _readOnlyUnitOfWork.needApostilleRepository.GetAllAsQuerable()
+                                                    where (PCTB.NeedApostilleId == NATB.Id && NATB.IsDeleted != true)
+                                                    select new GetNeedApostilleDto
+                                                    {
+                                                        Id = NATB.Id,
+                                                        Details = NATB.Details,
+                                                        Amount = NATB.Amount,
+                                                    }).ToList(),
+                            notraizedCertyAddressDetails = (from NotarizedAndCertyIndianAddress NCTB in _readOnlyUnitOfWork.notarizedAndCertyIndianAddressRepository.GetAllAsQuerable()
+                                                            where (PCTB.NotarizedAndCertyIndianAddressId == NCTB.Id && NCTB.IsDeleted != true)
+                                                            select new GetNotarizedAndCertyIndianAddressDto
+                                                            {
+                                                                Id = NCTB.Id,
+                                                                Details = NCTB.Details,
+                                                                Amount = NCTB.Amount,
+                                                            }).ToList(),
                         }).ToList();
+
+
 
             return data;
         }
@@ -132,12 +165,45 @@ namespace Wordstag.Services.Services
                             TotalAmount = PCTB.TotalAmount,
                             CreatedOn = PCTB.CreatedOn,
                             CreatedBy = PCTB.CreatedBy,
-                            NotarizedAndCertyIndianAddressDetails = NCTB.Details,
-                            NotarizedAndCertyIndianAddressAmount = NCTB.Amount,
-                            RequiredHardCopyDetails = RCTB.Details,
-                            RequiredHardCopyAmount = RCTB.Amount,
-                            NeedApostilleDetails = NATB.Details,
-                            NeedApostilleAmount = NATB.Amount,
+
+                            productDetails = (from Product ProTB in _readOnlyUnitOfWork.ProductRepository.GetAllAsQuerable()
+                                              where (PCTB.ProductId == ProTB.ProductId && ProTB.IsDeleted != true)
+                                              select new GetProductDto
+                                              {
+                                                  ProductId = ProTB.ProductId,
+                                                  ProductName = ProTB.ProductName,
+                                                  Description = ProTB.Description,
+                                                  Price = ProTB.Price,
+                                                  ProductTypeId = ProTB.ProductTypeId,
+                                                  FromLanguage = ProTB.FromLanguage,
+                                                  ToLanguage = ProTB.ToLanguage,
+                                                  PlanId = ProTB.PlanId,
+                                              }).ToList(),
+                            requiredHardCopyDetails = (from RequireHardCopy RCTB in _readOnlyUnitOfWork.requireHardCopyRepository.GetAllAsQuerable()
+                                                       where (PCTB.RequireHardCopyId == RCTB.Id && RCTB.IsDeleted != true)
+                                                       select new GetRequireHardCopyDto
+                                                       {
+                                                           Id = RCTB.Id,
+                                                           Details = RCTB.Details,
+                                                           Amount = RCTB.Amount,
+                                                       }).ToList(),
+                            needApostilleDetails = (from NeedApostille NATB in _readOnlyUnitOfWork.needApostilleRepository.GetAllAsQuerable()
+                                                    where (PCTB.NeedApostilleId == NATB.Id && NATB.IsDeleted != true)
+                                                    select new GetNeedApostilleDto
+                                                    {
+                                                        Id = NATB.Id,
+                                                        Details = NATB.Details,
+                                                        Amount = NATB.Amount,
+                                                    }).ToList(),
+                            notraizedCertyAddressDetails = (from NotarizedAndCertyIndianAddress NCTB in _readOnlyUnitOfWork.notarizedAndCertyIndianAddressRepository.GetAllAsQuerable()
+                                                            where (PCTB.NotarizedAndCertyIndianAddressId == NCTB.Id && NCTB.IsDeleted != true)
+                                                            select new GetNotarizedAndCertyIndianAddressDto
+                                                            {
+                                                                Id = NCTB.Id,
+                                                                Details = NCTB.Details,
+                                                                Amount = NCTB.Amount,
+                                                            }).ToList(),
+
                         }).ToList();
 
             return data;
@@ -149,8 +215,8 @@ namespace Wordstag.Services.Services
             if (data != null)
             {
                 data.ProductId = request.ProductId;
-                data.Noofapplicants= request.Noofapplicants;
-                data.Requiredservices= request.Requiredservices;
+                data.Noofapplicants = request.Noofapplicants;
+                data.Requiredservices = request.Requiredservices;
                 data.DocumentsApostilled = request.DocumentsApostilled;
                 data.CanadaImmigrationVisa = request.CanadaImmigrationVisa;
                 data.NotarizedAndCertyIndianAddressId = request.NotarizedAndCertyIndianAddressId;
@@ -187,5 +253,5 @@ namespace Wordstag.Services.Services
 
 
 
-    
+
 }

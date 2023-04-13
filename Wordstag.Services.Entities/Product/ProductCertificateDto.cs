@@ -68,12 +68,13 @@ namespace Wordstag.Services.Entities.Product
         public decimal? TotalAmount { get; set; }
         public DateTime? CreatedOn { get; set; }
         public Guid? CreatedBy { get; set; }
-        public string? NotarizedAndCertyIndianAddressDetails { get; set; }
-        public decimal? NotarizedAndCertyIndianAddressAmount { get; set; }
-        public string? RequiredHardCopyDetails { get; set; }
-        public decimal? RequiredHardCopyAmount { get; set; }
-        public string? NeedApostilleDetails { get; set; }
-        public decimal? NeedApostilleAmount { get; set; }
+       public List<GetProductDto> productDetails { get; set; }
+        public List<GetRequireHardCopyDto> requiredHardCopyDetails { get; set; }
+        public List<GetNeedApostilleDto> needApostilleDetails { get; set; }
+        public List<GetNotarizedAndCertyIndianAddressDto> notraizedCertyAddressDetails { get; set; }
+
+
+
     }
 
     public class UpdateProductCertificateDto
