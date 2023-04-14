@@ -41,12 +41,14 @@ namespace Wordstag.Services.Services
 
             LoginDto loginDto = new LoginDto();
             loginDto.Id = user.UserId;
-            loginDto.Username = user.FirstName;
-            loginDto.Password = user.LastName;
+            loginDto.FirstName = user.FirstName;
+            loginDto.LastName = user.LastName;
+            loginDto.EmailId = user.EmailAddress;
+            loginDto.Mobile = user.MobileNo;
             loginDto.JwtToken = _jwtService.GenerateSecurityToken(new SessionDetailsDto
             {
-                FirstName = loginDto.Username,
-                LastName = loginDto.Password,
+                FirstName = loginDto.FirstName,
+                LastName = loginDto.LastName,
                 UserId = loginDto.Id
             }, _appSettings, out var expiresOn);
 
