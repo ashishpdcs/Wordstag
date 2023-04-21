@@ -43,7 +43,7 @@ namespace Wordstag.API.Infrastructure.Extensions
             services.AddTransient(typeof(INotarizedAndCertyIndianAddressRepository<>), typeof(NotarizedAndCertyIndianAddressRepository<>));
             services.AddTransient(typeof(INeedApostilleRepository<>), typeof(NeedApostilleRepository<>));
             services.AddTransient(typeof(IRequireHardCopyRepository<>), typeof(RequireHardCopyRepository<>));
-
+            services.AddTransient(typeof(IProductServiceRepository<>), typeof(ProductServiceRepository<>));
         }
 
         public static void ConfigureDatabases(this IServiceCollection services, IConfiguration configuration)

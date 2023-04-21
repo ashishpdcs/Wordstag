@@ -110,7 +110,7 @@ namespace Wordstag.Data.Contexts
         public DbSet<NotarizedAndCertyIndianAddress> notarizedAndCertyIndianAddresses{ get; set; }
         public DbSet<RequireHardCopy> requireHardCopies { get; set; }
         public DbSet<NeedApostille> needApostilles { get; set; }
-
+        public DbSet<ProductServicetbl> productService { get; set; }
 
     }
 

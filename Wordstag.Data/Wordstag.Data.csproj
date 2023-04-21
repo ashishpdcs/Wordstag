@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Audit.EntityFramework.Core" Version="20.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.0" />
+   <!-- <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.0" />-->
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
@@ -19,5 +19,5 @@
     <ProjectReference Include="..\Wordstag.Services.Entities\Wordstag.Services.Entities.csproj" />
     <ProjectReference Include="..\Wordstag.Utility\Wordstag.Utility.csproj" />
   </ItemGroup>
-
+     
 </Project>

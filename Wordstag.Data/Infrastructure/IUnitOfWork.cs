@@ -23,6 +23,7 @@ namespace Wordstag.Data.Infrastructure
         INotarizedAndCertyIndianAddressRepository<TContext> notarizedAndCertyIndianAddressRepository { get; }
         INeedApostilleRepository<TContext> needApostilleRepository { get; }
         IRequireHardCopyRepository<TContext> requireHardCopyRepository{ get; }
+        IProductServiceRepository<TContext> ProductServiceRepository { get; }
 
         Task<int> CommitAsync();
 
@@ -48,6 +49,8 @@ namespace Wordstag.Data.Infrastructure
         public INotarizedAndCertyIndianAddressRepository<TContext> notarizedAndCertyIndianAddressRepository { get; }
         public INeedApostilleRepository<TContext> needApostilleRepository { get; }
         public IRequireHardCopyRepository<TContext> requireHardCopyRepository { get; }
+       public IProductServiceRepository<TContext> ProductServiceRepository { get; }
+
 
 
 
@@ -60,7 +63,7 @@ namespace Wordstag.Data.Infrastructure
             IProductTypeRepository<TContext> productTypeRepository,
             IProductRepository<TContext> productRepository,
             ILanguageRepository<TContext> languageRepository, 
-            IDocumentRepository<TContext> documentRepository, 
+            IDocumentRepository<TContext> documentRepository,
             IOrderRepository<TContext> orderRepository,
             IUploadRepository<TContext> uploadRepository,
             IUserSampleRepository<TContext> userSampleRepository,
@@ -69,6 +72,7 @@ namespace Wordstag.Data.Infrastructure
             INotarizedAndCertyIndianAddressRepository<TContext> notarizedAndCertyIndianAddressRepository,
             INeedApostilleRepository<TContext> needApostilleRepository,
             IRequireHardCopyRepository<TContext> requireHardCopyRepository
+          , IProductServiceRepository<TContext> productServiceRepository
             )
         {
             this.Context = context;
@@ -90,9 +94,7 @@ namespace Wordstag.Data.Infrastructure
             this.notarizedAndCertyIndianAddressRepository = notarizedAndCertyIndianAddressRepository;
             this.needApostilleRepository = needApostilleRepository;
             this.requireHardCopyRepository = requireHardCopyRepository;
-
-
-
+            this.ProductServiceRepository = productServiceRepository;
         }
         public async Task<int> CommitAsync()
         {
