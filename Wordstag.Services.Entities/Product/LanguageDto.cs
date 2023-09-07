@@ -47,4 +47,10 @@ namespace Wordstag.Services.Entities.Product
     {
         public Guid LanguageId { get; set; }
     }
+    public class GetLanguageJson
+    {
+        public string? Id { get; set; }
+        public string? Text { get; set; }
+       
+    }
 }

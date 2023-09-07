@@ -13,6 +13,7 @@ using Wordstag.Domain.Entities.Product;
 using Wordstag.Domain.Entities.Order;
 using Wordstag.Domain.Entities.Upload;
 using Wordstag.Domain.Entities.UserSample;
+using Wordstag.Domain.Entities.Vendor;
 
 namespace Wordstag.Data.Contexts
 {
@@ -111,8 +112,9 @@ namespace Wordstag.Data.Contexts
         public DbSet<RequireHardCopy> requireHardCopies { get; set; }
         public DbSet<NeedApostille> needApostilles { get; set; }
         public DbSet<ProductServicetbl> productService { get; set; }
-
-    }
+        public DbSet<VendorRegister> vendorRegister { get; set; }
+		public DbSet<VendorSkill> vendorSkill { get; set; }
+	}
 
     public interface IBaseContext
     {

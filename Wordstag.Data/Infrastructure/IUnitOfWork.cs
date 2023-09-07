@@ -24,8 +24,10 @@ namespace Wordstag.Data.Infrastructure
         INeedApostilleRepository<TContext> needApostilleRepository { get; }
         IRequireHardCopyRepository<TContext> requireHardCopyRepository{ get; }
         IProductServiceRepository<TContext> ProductServiceRepository { get; }
+        IVendorRegisterRepository<TContext> VendorRegisterRepository { get; }
+		IVendorSkillRepository<TContext> VendorSkillRepository { get; }
 
-        Task<int> CommitAsync();
+		Task<int> CommitAsync();
 
     }
     public class UnitOfWork<TContext> : IUnitOfWork<TContext> where TContext : IBaseContext
@@ -51,10 +53,11 @@ namespace Wordstag.Data.Infrastructure
         public IRequireHardCopyRepository<TContext> requireHardCopyRepository { get; }
        public IProductServiceRepository<TContext> ProductServiceRepository { get; }
 
+        public IVendorRegisterRepository<TContext> VendorRegisterRepository { get; }
+		public IVendorSkillRepository<TContext> VendorSkillRepository { get; }
 
 
-
-        public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
+		public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
             IUserRegisterRepository<TContext> _userRegisterRepository,
             IRefreshTokenRepository<TContext> refreshTokenRepository,
             ICityMasterRepository<TContext> cityMasterRepository,
@@ -72,8 +75,10 @@ namespace Wordstag.Data.Infrastructure
             INotarizedAndCertyIndianAddressRepository<TContext> notarizedAndCertyIndianAddressRepository,
             INeedApostilleRepository<TContext> needApostilleRepository,
             IRequireHardCopyRepository<TContext> requireHardCopyRepository
-          , IProductServiceRepository<TContext> productServiceRepository
-            )
+          , IProductServiceRepository<TContext> productServiceRepository,
+            IVendorRegisterRepository<TContext> vendorRegisterRepository,
+			  IVendorSkillRepository<TContext> vendorSkillRepository
+			)
         {
             this.Context = context;
             this.AccountsRepository = accountsRepository;
@@ -95,7 +100,9 @@ namespace Wordstag.Data.Infrastructure
             this.needApostilleRepository = needApostilleRepository;
             this.requireHardCopyRepository = requireHardCopyRepository;
             this.ProductServiceRepository = productServiceRepository;
-        }
+            this.VendorRegisterRepository = vendorRegisterRepository;
+			this.VendorSkillRepository = vendorSkillRepository;
+		}
         public async Task<int> CommitAsync()
         {
             TContext checkType = default(TContext);

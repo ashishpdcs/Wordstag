@@ -7,10 +7,12 @@ namespace Wordstag.Services.Interfaces
     public interface ILanguageService
     {
         Task<List<GetLanguageDto>> GetLanguage(GetLanguageDto request);
-        Task<GenericList<GetLanguageDto>> GetAllLanguage(PaginationDto paginationDto);
+        Task<List<GetLanguageDto>> GetAllLanguage();
         Task<List<GetLanguageDto>> GetAllLanguageName();
         Task<Guid> SaveLanguage(SaveLanguageDto request);   
         Task<bool> UpdateLanguage(UpdateLanguageDto request);
+
+        Task<List<GetLanguageJson>> GetAllLanguageDropdown(string? searchKeywords, string? type);
       //  Task<bool> DeleteLanguage(DeleteLanguageDto request);
 
     }

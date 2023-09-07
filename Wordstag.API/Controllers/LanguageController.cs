@@ -28,9 +28,15 @@ namespace Wordstag.API.Controllers
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllLanguage")]
-        public async Task<Dictionary<string, object>> GetAllLanguage(PaginationDto paginationDto)
+        public async Task<Dictionary<string, object>> GetAllLanguage()
         {
-            var result = await _LanguageService.GetAllLanguage(paginationDto);
+            var result = await _LanguageService.GetAllLanguage();
+            return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
+        }
+        [HttpPost("GetAllLanguageDropdown")]
+        public async Task<Dictionary<string, object>> GetAllLanguageDropdown([FromBody] GetLanguageJsonRequest request)
+        {
+            var result = await _LanguageService.GetAllLanguageDropdown(request.SearchKeywords,request.Type);
             return new Dictionary<string, object>() { { Constants.ResponseDataField, result } };
         }
         [HttpPost("GetAllLanguageName")]

@@ -7,6 +7,7 @@ namespace Wordstag.Utility
         public string SubDomain { get; set; }
         public string JwtExpiryInMinutes { get; set; }
         public int RefreshTokenTTL { get; set; }
-      
+        public string ConnectionString = "Data Source=wordstag.database.windows.net;User Id=wordstag;Password=admin@1234;Initial Catalog=WordstagDb;MultipleActiveResultSets=true;";
+
     }
 }

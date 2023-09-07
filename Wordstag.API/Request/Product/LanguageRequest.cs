@@ -11,6 +11,12 @@
     {
         public Guid LanguageId { get; set; }
     }
+
+    public class GetLanguageJsonRequest
+    {
+        public string? SearchKeywords { get; set; }
+        public string? Type { get; set;}
+    }
     public class SaveLanguageRequest
     {
         public string? LanguageName { get; set; }

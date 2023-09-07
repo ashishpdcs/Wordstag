@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Text;
 using Wordstag.Data.Contexts;
 using Wordstag.Data.Infrastructure;
 using Wordstag.Domain.Entities.Product;
 using Wordstag.Services.Entities;
 using Wordstag.Services.Entities.Common;
 using Wordstag.Services.Entities.Product;
+using Wordstag.Services.Entities.Vendor;
 using Wordstag.Services.Infrastructure;
 using Wordstag.Services.Interfaces;
 using Wordstag.Utility;
@@ -41,58 +44,117 @@ namespace Wordstag.Services.Services
                             LanguageName = LanguageTB.LanguageName,
                             LanguageCode = LanguageTB.LanguageCode,
                             CreatedBy = LanguageTB.CreatedBy,
-                            CreatedOn = LanguageTB.CreatedOn, 
+                            CreatedOn = LanguageTB.CreatedOn,
                             UpdatedBy = LanguageTB.UpdatedBy,
                             UpdatedOn = LanguageTB.UpdatedOn,
                         }).ToList();
             return data;
         }
-        public async Task<GenericList<GetLanguageDto>> GetAllLanguage(PaginationDto paginationDto)
+        public async Task<List<GetLanguageDto>> GetAllLanguage()
         {
-            var dataQuery = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
+            var data = (from LanguageTB in _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable()
                         select new GetLanguageDto
                         {
                             LanguageId = LanguageTB.LanguageId,
                             LanguageName = LanguageTB.LanguageName,
                             LanguageCode = LanguageTB.LanguageCode,
-                            CreatedBy = LanguageTB.CreatedBy,
-                            CreatedOn = LanguageTB.CreatedOn,
-                            UpdatedBy = LanguageTB.UpdatedBy,
-                            UpdatedOn = LanguageTB.UpdatedOn,
-                        });
+                        }).ToList();
 
-            if (!string.IsNullOrEmpty(paginationDto.OrderBy))
+
+            return data;
+
+
+
+        }
+        public async Task<List<GetLanguageJson>> GetAllLanguageDropdown(string? searchKeywords, string? type)
+        {
+            var allLanguages = _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable();
+
+            if (!string.IsNullOrWhiteSpace(searchKeywords))
             {
-                dataQuery = dataQuery.OrderByDynamic(paginationDto.OrderBy, paginationDto.OrderDirection);
-            }
-            if (!string.IsNullOrEmpty(paginationDto.GlobalSearch))
-            {
-                dataQuery = dataQuery.Where(x => x.LanguageName.Contains(paginationDto.GlobalSearch)
-                || (x.LanguageName != null && x.LanguageName.Contains(paginationDto.GlobalSearch))
-                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.CreatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
-                || (GenericMethods.checkStringIsValidDateTime(paginationDto.GlobalSearch) == true && x.UpdatedOn != null && x.UpdatedOn == Convert.ToDateTime(paginationDto.GlobalSearch))
-                );
+                allLanguages = allLanguages.Where(language => language.LanguageName.StartsWith(searchKeywords));
             }
 
-            // Before calculate count if required any filter then apply that first then applied pagination
-            var dataCount = dataQuery.Count();
-            var data = new GenericList<GetLanguageDto>();
-            data.List = paginationDto.PageIndex == 0 ? dataQuery.ToList() : dataQuery.Skip(((paginationDto.PageIndex.Value - 1) * paginationDto.PageSize.Value)).Take(paginationDto.PageSize.Value).ToList();
-            data.TotalCount = dataCount;
-            data.PageCount = dataCount;
-            if (paginationDto.PageSize != null && paginationDto.PageSize != 0)
+            var data = allLanguages.Select(language => new GetLanguageDto
             {
-                if (data.TotalCount % paginationDto.PageSize.Value == 0)
+                LanguageId = language.LanguageId,
+                LanguageName = language.LanguageName,
+                LanguageCode = language.LanguageCode,
+            }).ToList();
+
+            var result = new List<GetLanguageJson>();
+            if (type == "single")
+            {
+                // Return a single language
+                if (data.Count > 0)
                 {
-                    data.PageCount = data.TotalCount / paginationDto.PageSize.Value;
+                    var languagePairs = new List<object>();
+
+                    foreach (var to in data)
+                    {
+                        result.Add(new GetLanguageJson
+                        {
+                            Id = to.LanguageId.ToString(),
+                            Text = to.LanguageName
+                        });
+                    }
+
+                    if (result.Count > 0)
+                    {
+                        return result;
+                    }
+                    else
+                    {
+                        return new List<GetLanguageJson> { new GetLanguageJson { Id = null, Text = "No languages available." } };
+                    }
+
+                }
+               
+            }
+            else if (type == "multiple")
+            {
+                // Return language pairs (from and to)
+                var languagePairs = new List<string>();
+                var toLanguages = _readOnlyUnitOfWork.LanguageRepository.GetAllAsQuerable();
+
+                foreach (var from in data)
+                {
+                    foreach (var to in toLanguages)
+                    {
+                        if (from.LanguageId != to.LanguageId)
+                        {
+                            string idString = $"id={from.LanguageId}|{to.LanguageId}";
+                            string nameString = $"name={from.LanguageName} To {to.LanguageName}";
+                            //  string concatenatedPair = $"{idString}     {nameString}";
+
+                            //languagePairs.Add(concatenatedPair);
+                            result.Add(new GetLanguageJson
+                            {
+                                Id = $"{from.LanguageId}|{to.LanguageId}",
+                                Text = $"{from.LanguageName} To {to.LanguageName}"
+                            });
+                        }
+                    }
+                }
+
+                if (result.Count > 0)
+                {
+                    return result;
                 }
                 else
                 {
-                    data.PageCount = (data.TotalCount / paginationDto.PageSize.Value) + 1;
+                    return new List<GetLanguageJson> { new GetLanguageJson { Id = null, Text = "No language pairs available." } };
                 }
             }
-            return data;
+            else
+            {
+                return new List<GetLanguageJson> { new GetLanguageJson { Id = null, Text = "Invalid kk parameter" } };
+            }
+            return null;
         }
+
+
+
         public async Task<Guid> SaveLanguage(SaveLanguageDto request)
         {
             var saveLanguage = new Language()
