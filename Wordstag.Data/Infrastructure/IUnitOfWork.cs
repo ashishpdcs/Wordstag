@@ -26,8 +26,9 @@ namespace Wordstag.Data.Infrastructure
         IProductServiceRepository<TContext> ProductServiceRepository { get; }
         IVendorRegisterRepository<TContext> VendorRegisterRepository { get; }
 		IVendorSkillRepository<TContext> VendorSkillRepository { get; }
+        IContactUsRepository<TContext> ContactUsRepository { get; }
 
-		Task<int> CommitAsync();
+        Task<int> CommitAsync();
 
     }
     public class UnitOfWork<TContext> : IUnitOfWork<TContext> where TContext : IBaseContext
@@ -55,9 +56,10 @@ namespace Wordstag.Data.Infrastructure
 
         public IVendorRegisterRepository<TContext> VendorRegisterRepository { get; }
 		public IVendorSkillRepository<TContext> VendorSkillRepository { get; }
+        public IContactUsRepository<TContext> ContactUsRepository { get; }
 
 
-		public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
+        public UnitOfWork(TContext context, IAccountsRepository<TContext> accountsRepository,
             IUserRegisterRepository<TContext> _userRegisterRepository,
             IRefreshTokenRepository<TContext> refreshTokenRepository,
             ICityMasterRepository<TContext> cityMasterRepository,
@@ -77,7 +79,8 @@ namespace Wordstag.Data.Infrastructure
             IRequireHardCopyRepository<TContext> requireHardCopyRepository
           , IProductServiceRepository<TContext> productServiceRepository,
             IVendorRegisterRepository<TContext> vendorRegisterRepository,
-			  IVendorSkillRepository<TContext> vendorSkillRepository
+			  IVendorSkillRepository<TContext> vendorSkillRepository,
+              IContactUsRepository<TContext> contactUsRepository
 			)
         {
             this.Context = context;
@@ -102,6 +105,7 @@ namespace Wordstag.Data.Infrastructure
             this.ProductServiceRepository = productServiceRepository;
             this.VendorRegisterRepository = vendorRegisterRepository;
 			this.VendorSkillRepository = vendorSkillRepository;
+            this.ContactUsRepository = contactUsRepository;
 		}
         public async Task<int> CommitAsync()
         {

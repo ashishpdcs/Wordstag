@@ -14,6 +14,7 @@ using Wordstag.Domain.Entities.Order;
 using Wordstag.Domain.Entities.Upload;
 using Wordstag.Domain.Entities.UserSample;
 using Wordstag.Domain.Entities.Vendor;
+using Wordstag.Domain.Entities.ContactUs;
 
 namespace Wordstag.Data.Contexts
 {
@@ -114,7 +115,8 @@ namespace Wordstag.Data.Contexts
         public DbSet<ProductServicetbl> productService { get; set; }
         public DbSet<VendorRegister> vendorRegister { get; set; }
 		public DbSet<VendorSkill> vendorSkill { get; set; }
-	}
+        public DbSet<ContactUs> contactUs { get; set; }
+    }
 
     public interface IBaseContext
     {

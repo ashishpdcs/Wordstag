@@ -46,7 +46,9 @@ namespace Wordstag.API.Infrastructure.Extensions
             services.AddTransient(typeof(IProductServiceRepository<>), typeof(ProductServiceRepository<>));
             services.AddTransient(typeof(IVendorRegisterRepository<>), typeof(VendorRegisterRepository<>));
 			services.AddTransient(typeof(IVendorSkillRepository<>), typeof(VendorSkillRepository<>));
-		}
+            services.AddTransient(typeof(IContactUsRepository<>), typeof(ContactUsRepository<>));
+
+        }
 
         public static void ConfigureDatabases(this IServiceCollection services, IConfiguration configuration)
         {
